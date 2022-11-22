@@ -1,0 +1,242 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}Pay Your Order{% endblock %}
+{% block content %}
+
+<section>
+  <h1 class="sr-only">Checkout</h1>
+
+  <div class="relative mx-auto w-3/4">
+    <div class="grid grid-cols-1 md:grid-cols-2">
+      <div class="bg-gray-50 py-12 md:py-24">
+        <div class="mx-auto max-w-lg px-4 lg:px-8">
+          <span class="">
+            <a href="{% url "cart_detail" %}" class="text-md font-bold text-white bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg inline-flex items-center px-4 py-2 text-sm font-medium text-white my-5">
+              <!-- Heroicon name: mini/check -->
+              <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path></svg>
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+              </svg>
+              Go Back
+            </a>
+          </span>
+          <div class="flex items-center">
+            
+            <span class="h-10 w-10 rounded-full bg-secondary"></span>
+            <h2 class="ml-4 font-medium">Freeny Driving School</h2>
+          </div>
+
+          <div class="mt-8">
+            <p class="text-2xl font-medium tracking-tight">${{ cart.get_total_price }}</p>
+            <p class="mt-1 text-sm text-gray-500">For the purchase of:</p>
+          </div>
+
+          <div class="mt-12">
+            <div class="flow-root">
+              <ul class="-my-4 divide-y divide-gray-200">
+                {% for item in cart %}
+                <li class="flex items-center justify-between py-4">
+                  <div class="flex items-start">
+                    <img
+                      alt="Trainer"
+                      src="{% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"
+                      class="h-16 w-16 flex-shrink-0 rounded-lg object-cover"
+                    />
+
+                    <div class="ml-4">
+                      <p class="text-sm">{{ item.course.title }}</p>
+
+                      <dl class="mt-1 space-y-1 text-xs text-gray-500">
+                        <div>
+                          <dt class="inline">Subject:</dt>
+                          <dd class="inline">{{ item.course.subject }}</dd>
+                        </div>
+
+                        <div>
+                          <dt class="inline">Chapters:</dt>
+                          <dd class="inline">{{ item.course.modules.count }}</dd>
+                        </div>
+                      </dl>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p class="text-sm">
+                      ${{ item.price }}
+                      <small class="text-gray-500">x{{ item.quantity }}</small>
+                    </p>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white py-12 md:py-24">
+        <div class="mx-auto max-w-lg px-4 lg:px-8">
+          {% if form.errors %}
+          <div class="flex p-4 mb-4 text-sm text-secondary bg-red-100 rounded-lg" role="alert">
+            <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+            <span class="sr-only">Danger</span>
+            <div>
+              <span class="font-medium">Oops!</span>
+                <ul class="mt-1.5 ml-4 text-secondary list-disc list-inside">
+                  {% for field in form %}
+                  {% for error in field.errors %}
+                  <li>{{ error|escape }}</li>
+                  {% endfor %}
+                  {% endfor %}
+                  {% for error in form.non_field_errors %}
+                  <li>{{ error|escape }}</li>
+                  {% endfor %}
+              </ul>
+            </div>
+          </div>
+          {% endif %}
+          <form id="address-form" class="grid grid-cols-6 gap-4" autocomplete="off" method="post">
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                First Name
+              </label>
+              {{ form.first_name }}
+            </div>
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                Last Name
+              </label>
+              {{ form.last_name }}
+            </div>
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                Email
+              </label>
+              {{ form.email }}
+            </div>
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                Phone
+              </label>
+              {{ form.phone }}
+            </div>
+            <div class="col-span-6">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                Address
+              </label>
+              {{ form.ship_address }}
+            </div>
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                Apt,
+              </label>
+              {{ form.address2 }}
+            </div>
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                Zipcode
+              </label>
+              {{ form.postcode }}
+            </div>
+            <div class="col-span-6">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                City
+              </label>
+              {{ form.locality }}
+            </div>
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                State
+              </label>
+              {{ form.state }}
+            </div>
+            <div class="col-span-3">
+              <label class="mb-1 block text-sm text-gray-600" for="first_name">
+                Country
+              </label>
+              {{ form.country }}
+            </div>
+            <div class="col-span-6">
+              <button 
+            class="block w-full text-white bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg p-2.5 text-sm "
+            type="submit"
+            > Pay Now
+            </button>
+            </div>
+            {% csrf_token %}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block include_js %}
+<script
+      src="https://maps.googleapis.com/maps/api/js?key={{google_maps_api_key}}&callback=initAutocomplete&libraries=places&v=weekly"
+      defer
+    >
+</script>
+<script>
+var autocomplete;
+var address1Field;
+var address2Field;
+var postalField;
+function initAutocomplete() {
+    address1Field = document.querySelector("#ship_address");
+    address2Field = document.querySelector("#address2");
+    postalField = document.querySelector("#postcode");
+    autocomplete = new google.maps.places.Autocomplete(address1Field, {
+        componentRestrictions: { country: ["us", "ca"] },
+        fields: ["address_components", "geometry"],
+        types: ["address"],
+    });
+    address1Field.focus();
+    autocomplete.addListener("place_changed", fillInAddress);
+}
+function fillInAddress() {
+    var place = autocomplete.getPlace();
+    var address1 = "";
+    var postcode = "";
+    for (var _i = 0, _a = place.address_components; _i < _a.length; _i++) {
+        var component = _a[_i];
+        var componentType = component.types[0];
+        switch (componentType) {
+            case "street_number": {
+                address1 = "".concat(component.long_name, " ").concat(address1);
+                break;
+            }
+            case "route": {
+                address1 += component.short_name;
+                break;
+            }
+            case "postal_code": {
+                postcode = "".concat(component.long_name).concat(postcode);
+                break;
+            }
+            case "postal_code_suffix": {
+                postcode = "".concat(postcode, "-").concat(component.long_name);
+                break;
+            }
+            case "locality":
+                document.querySelector("#locality").value =
+                    component.long_name;
+                break;
+            case "administrative_area_level_1": {
+                document.querySelector("#state").value =
+                    component.short_name;
+                break;
+            }
+            case "country":
+                document.querySelector("#country").value =
+                    component.long_name;
+                break;
+        }
+    }
+    address1Field.value = address1;
+    postalField.value = postcode;
+    address2Field.focus();
+}
+window.initAutocomplete = initAutocomplete;
+</script>
+{% endblock %}

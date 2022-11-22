@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Logged out{% endblock %}
+
+{% block content %}
+<div>
+  <div class="bg-neutrals-l00">
+    <div
+      class="h-full w-full bg-cover bg-bottom bg-no-repeat"
+      style="background-image:url({% static "img/bg-inner-heroFS2.jpg" %});"
+    >
+    
+      <div class="container pt-40 pb-72 text-center sm:pt-48 md:pb-84 xl:pb-100">
+        <h1
+          class="font-body text-4xl font-medium tracking-wider text-white lg:text-5xl xl:text-6xl"
+        >
+          Logged Out!
+        </h1>
+        <span
+          class="block pt-6 font-body text-2xl font-light tracking-wide text-white sm:pt-8"
+        >
+        You have been successfully logged out!
+        You can <a class="text-secondary" href="{% url "login" %}">( log-in again )</a>.
+        </span>
+      </div>
+    </div>
+  </div>
+  </div>
+{% endblock %}

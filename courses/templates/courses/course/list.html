@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% load course %}
+{% load static %}
+{% block title %}
+  {% if subject %}
+    {{ subject.title }} courses
+  {% else %}
+    All courses
+  {% endif %}
+{% endblock %}
+{% block content %}
+<div>
+<div class="bg-neutrals-l00">
+  <div class="container pt-10 pb-40 sm:pt-16 sm:pb-48 md:pb-36 xl:pb-40">
+    <div class="text-center">
+      <h1
+        class="font-body text-4xl font-medium text-secondary lg:text-5xl xl:text-6xl"
+      >
+      {% if subject %}
+        Courses in {{ subject.title }}
+      {% else %}
+        All courses
+      {% endif %}
+      </h1>
+      <div class="mx-auto sm:w-2/3">
+        <span
+          class="block pt-5 font-body text-base text-neutrals-g03 sm:text-xl"
+          >We have a big calatogue where you can find different courses for different fields, you can learn a new skill in just 1 hour. Awesome, right?</span
+        >
+      </div>
+    </div>
+    <div class="flex flex-col justify-between pt-10 md:pt-16 md:flex-row">
+      <div class="grid grid-cols-1 gap-2 lg:grid-cols-4 xl:w-3/4">
+      <div
+        class="rounded-lg mt-2 flex w-full items-center justify-between border border-secondary bg-white font-body text-base text-neutrals-g03 focus:border-secondary focus:outline-none focus:ring-0"
+      >
+        <button id="dropdownDefault" data-dropdown-toggle="dropdown2" class="text-secondary font-medium rounded-lg text-sm px-4 py-3 sm:py-4 md:px-6 text-center items-center flex w-full items-center justify-between" type="button">
+          {% if subject %}
+            {{subject}}
+          {% else %}
+            Subjects
+          {% endif %}
+          <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+            </path>
+          </svg>
+        </button>
+        <div id="dropdown2" class="rounded-lg hidden z-10 w-56 bg-white divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 535px, 0px);">
+          <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+            <li>
+              <a href="{% url "course_list" %}" class="block py-2 px-4 hover:bg-gray-100">
+                All Courses
+                <br>
+              </a>
+            </li>
+          {% for s in subjects %}
+          <li>
+            <a href="{% url "course_list_subject" s.slug %}" class="block py-2 px-4 hover:bg-gray-100">
+              {{ s.title }} | {{ s.total_courses }} course{{ s.total_courses|pluralize }}
+              <br>
+            </a>
+          </li>
+          {% endfor %}
+          </ul>
+      </div>
+      </div>
+      </div>
+      <div
+        class="rounded-lg mt-2 flex w-full items-center justify-between border border-secondary bg-white font-body text-base text-neutrals-g03 focus:border-secondary focus:outline-none focus:ring-0 md:w-1/3 lg:mt-0 lg:ml-2 lg:w-1/4"
+      >
+        <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-secondary font-medium rounded-lg text-sm px-4 py-3 sm:py-4 md:px-6 text-center inline-flex items-center flex w-full items-center justify-between" type="button">
+          Sort By: {% if 'highest' in request.get_full_path %}High To Low {% else %} Low To High{% endif %}
+          <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+            </path>
+          </svg>
+        </button>
+        <!-- Dropdown menu -->
+        <div id="dropdown" class="rounded-lg hidden z-10 w-56 bg-white divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 535px, 0px);">
+            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+              <li>
+                <a 
+                href="{% clean_url %}?order_by=highest"
+                class="block py-2 px-4 hover:bg-gray-100">
+                Highest Price
+                </a>
+              </li>
+              <li>
+                <a 
+                href="{% clean_url %}?order_by=lowest"
+                class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Lowest Price
+              </a>
+              </li>
+            </ul>
+        </div>
+      </div>
+    </div>
+    <div class="mt-14"><div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {% if 'highest' in request.get_full_path %}
+      {% for course in courses|dictsortreversed:"price" %}
+      {% with subject=course.subject %}
+      <a
+        href="{% url "course_detail" course.slug %}"
+        class="group rounded-lg border border-neutrals-l02"
+      >
+        <span
+          class="shadow-xs block transform rounded-lg transition duration-700 ease-in-out hover:scale-105 hover:shadow-md"
+        >
+          <span
+            class="block h-56 rounded-t-lg bg-cover bg-center bg-no-repeat sm:h-72 md:h-56 lg:h-48 xl:h-56"
+            style="background-image: url({% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %});"
+          ></span>
+          <span
+            class="block border-b border-neutrals-g01 bg-white px-5 py-8 lg:px-3 xl:px-5"
+          >
+            <h4
+              class="block pb-2 font-body text-lg font-semibold text-neutrals-g03 group-hover:text-secondary lg:pb-3 xl:text-xl"
+            >
+            {{ course.title }}
+            </h4>
+            <span class="flex">
+              <span class="flex">
+                <span class="font-body text-sm font-medium text-neutrals-g02"
+                  >Instructor -</span
+                >
+                <span
+                  class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
+                  >{{ course.owner.get_full_name }}</span
+                >
+              </span>
+              <span class="flex pl-5">
+                <span class="font-body text-sm font-medium text-neutrals-g02"
+                  >Subject -</span
+                >
+                <span
+                  class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
+                  >{{ subject }}</span
+                >
+              </span>
+            </span>
+          </span>
+          <span
+            class="flex items-center justify-between rounded-b-lg bg-white px-5 py-4 lg:px-3 xl:px-5"
+          >
+            <span class="flex items-center">
+              <span class="block font-body text-sm font-medium text-neutrals-g02"
+                >{{ course.total_modules }} Chapters</span
+              >
+            </span>
+            <h2
+              class="font-body text-3xl font-semibold tracking-wider text-secondary"
+            >
+              ${{course.price}}
+            </h2>
+          </span>
+        </span>
+      </a>
+      {% endwith %}
+      {% endfor %} 
+      {% else %} 
+      {% for course in courses|dictsort:"price" %}
+      {% with subject=course.subject %}
+      <a
+        href="{% url "course_detail" course.slug %}"
+        class="group rounded-lg border border-neutrals-l02"
+      >
+        <span
+          class="shadow-xs block transform rounded-lg transition duration-700 ease-in-out hover:scale-105 hover:shadow-md"
+        >
+          <span
+            class="block h-56 rounded-t-lg bg-cover bg-center bg-no-repeat sm:h-72 md:h-56 lg:h-48 xl:h-56"
+            style="background-image: url({% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %});"
+          ></span>
+          <span
+            class="block border-b border-neutrals-g01 bg-white px-5 py-8 lg:px-3 xl:px-5"
+          >
+            <h4
+              class="block pb-2 font-body text-lg font-semibold text-neutrals-g03 group-hover:text-secondary lg:pb-3 xl:text-xl"
+            >
+            {{ course.title }}
+            </h4>
+            <span class="flex">
+              <span class="flex">
+                <span class="font-body text-sm font-medium text-neutrals-g02"
+                  >Instructor -</span
+                >
+                <span
+                  class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
+                  >{{ course.owner.get_full_name }}</span
+                >
+              </span>
+              <span class="flex pl-5">
+                <span class="font-body text-sm font-medium text-neutrals-g02"
+                  >Subject -</span
+                >
+                <span
+                  class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
+                  >{{ subject }}</span
+                >
+              </span>
+            </span>
+          </span>
+          <span
+            class="flex items-center justify-between rounded-b-lg bg-white px-5 py-4 lg:px-3 xl:px-5"
+          >
+            <span class="flex items-center">
+              <span class="block font-body text-sm font-medium text-neutrals-g02"
+                >{{ course.total_modules }} Chapters</span
+              >
+            </span>
+            <h2
+              class="font-body text-3xl font-semibold tracking-wider text-secondary"
+            >
+              ${{course.price}}
+            </h2>
+          </span>
+        </span>
+      </a>
+      {% endwith %}
+      {% endfor %}
+      {% endif %}
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

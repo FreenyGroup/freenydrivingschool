@@ -1,0 +1,254 @@
+{% extends "base.html" %}
+{% load static %}
+{% load course %}
+{% block include_head %}
+<link  rel="stylesheet" href='{% static 'css/content_list.css' %}?{% now "U" %}'>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript"></script>
+{% endblock %}
+{% block title %}
+  Module {{ module.order|add:1 }}: {{ module.title }}
+{% endblock %}
+
+{% block content %}
+{% with course=module.course %}
+<div class="flex flex-col my-6 mx-4 rounded-2xl shadow-xl shadow-gray-200">
+  <div class="overflow-x-auto rounded-2xl">
+      <div class="inline-block min-w-full align-middle">
+          <div class="overflow-hidden">
+            {% if module.contents.all|length > 0 %}
+              <table class="fold-table min-w-full divide-y divide-gray-200 table-fixed">
+                <caption class="p-5 text-lg font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+                  Course "{{ course.title }}"
+                  <p class="mt-1 text-sm font-normal text-gray-500 dark:text-gray-400">Modules</p>
+                  <div class="mb-4 lg:mb-8 p-2 flex">
+                    <div class="md:w-1/3"></div>
+                    {% if course.modules.all|length > 0 %}
+                    <div class="md:w-2/3 flex">
+                        <button id="dropdownDefault" data-dropdown-toggle="dropdown" type="button" class="text-white bg-primary hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2">
+                            <svg class="mr-2 -ml-1 w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>                    
+                            {{module.title}}
+                        </button>
+                        <div id="dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                          <ul id="modules" class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                            {% for m in course.modules.all %}
+                            <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
+                              <a href="{% url "module_content_list" m.id %}" 
+                              class=" block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ m.title }}</a>
+                            </li>
+                            {% endfor %}
+                          </ul>
+                        </div>                
+                        <a href="{% url "course_module_update" course.id %}" type="button" class="text-white bg-secondary focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2">
+                            Edit Modules
+                            <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                        </a>
+                        <button id="dropdownDefault" data-dropdown-toggle="dropdown2" class="text-white bg-primary hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2" type="button">Pick Content To Add <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                            <!-- Dropdown menu -->
+                            <div id="dropdown2" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 433px, 0px);">
+                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                                  <li>
+                                    <a href="{% url "module_content_create" module.id "text" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Text</a>
+                                  </li>
+                                  <li>
+                                    <a href="{% url "module_content_create" module.id "image" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Image</a>
+                                  </li>
+                                  <li>
+                                    <a href="{% url "module_content_create" module.id "video" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Video</a>
+                                  </li>
+                                  <li>
+                                    <a href="{% url "module_content_create" module.id "file" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</a>
+                                  </li>
+                                  <li>
+                                    <a href="{% url "module_content_create" module.id "textwithimage" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Text With Img</a>
+                                  </li>
+                                </ul>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="text-base font-semibold text-gray-900">No Content</div>
+                    {% endif %}
+                  </div>
+                </caption>
+                  <thead class="bg-white">
+                      <tr>
+                        <th scope="col" class="p-4 lg:p-5">
+                          NO.
+                        </th>
+                          <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase lg:p-5">
+                              Module Name
+                          </th>
+                          <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase lg:p-5">
+                            Content Type
+                        </th>
+                        <th scope="col" class="p-4 text-xs font-medium text-gray-500 uppercase lg:p-5">
+                          Edit | Delete Content
+                      </th>
+                      </tr>
+                  </thead>
+                  <tbody id="module-contents">
+                    {% for content in module.contents.all %}
+                    <tr data-id="{{ content.id }}" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            {% with item=content.item %}
+                            <td class="p-4 w-4">
+                              # {{ forloop.counter }}
+                            </td>
+                            <th scope="row" class="py-4 px-6 text-sm font-normal text-gray-500 whitespace-nowrap lg:p-5">
+                              <div class="text-base font-semibold text-gray-900">{{ item }}</div>
+                            </th>
+                            <th class="py-4 px-6">
+                              ({{ item|model_name }})
+                            </th>
+                            <td class="flex items-center py-4 px-6 space-x-3 justify-center">
+                              <a href="{% url "module_content_update" module.id item|model_name item.id %}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                              <a type="button" data-modal-toggle="popup-modal_{{content.id}}" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-gradient-to-br from-red-400 to-red-600 rounded-lg shadow-md shadow-gray-300 hover:scale-[1.02] transition-transform">
+                                <svg class="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                Delete item
+                            </a>
+                            </td>
+                            <div id="popup-modal_{{content.id}}" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full">
+                              <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                  <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                      <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-toggle="popup-modal_{{content.id}}">
+                                          <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                          <span class="sr-only">Close modal</span>
+                                      </button>
+                                      <div class="p-6 text-center">
+                                          <svg aria-hidden="true" class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                          <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete "{{item}} from Module "{{module.title}}"?</h3>
+                                          <form action="{% url "module_content_delete" content.id %}" method="post">
+                                            <button data-modal-toggle="popup-modal_{{content.id}}" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
+                                              Yes, I'm sure
+                                            </button>
+                                            {% csrf_token %}
+                                          </form>
+                                          <button data-modal-toggle="popup-modal_{{content.id}}" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                                      </div>
+                                  </div>
+                              </div>
+                            </div>
+                              {% endwith %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+            <section class="bg-white dark:bg-gray-900">
+              <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+                  <div class="mx-auto max-w-screen-lg text-center">
+                      <h1 class="mb-4 text-3xl tracking-tight font-extrabold lg:text-5xl text-primary-600 dark:text-primary-500">No Content For</h1>
+                      <p class="mb-4 text-xl tracking-tight font-bold text-gray-900 md:text-2xl dark:text-white">{{module.title}} In Course: "{{ course.title }}" </p>
+                      <div class="mb-1 p-2 flex justify-center">
+                        {% if course.modules.all|length > 0 %}
+                        <div class="flex">
+                            <button id="dropdownDefault" data-dropdown-toggle="dropdown" type="button" class="text-white bg-primary hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2">
+                                <svg class="mr-2 -ml-1 w-6 h-6" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>                    
+                                {{module.title}}
+                            </button>
+                            <div id="dropdown" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700">
+                              <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                                {% for m in course.modules.all %}
+                                <li data-id="{{ m.id }}" {% if m == module %}class="selected"{% endif %}>
+                                  <a href="{% url "module_content_list" m.id %}" 
+                                  class=" block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">{{ m.title }}</a>
+                                </li>
+                                {% endfor %}
+                              </ul>
+                            </div>                
+                            <a href="{% url "course_module_update" course.id %}" type="button" class="text-white bg-secondary focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2">
+                                Edit Modules
+                                <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
+                            </a>
+                            <button id="dropdownDefault" data-dropdown-toggle="dropdown2" class="text-white bg-primary hover:bg-[#FF9119]/80 focus:ring-4 focus:outline-none focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2" type="button">Add Content <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+                                <!-- Dropdown menu -->
+                                <div id="dropdown2" class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 433px, 0px);">
+                                    <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+                                      <li>
+                                        <a href="{% url "module_content_create" module.id "text" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Text</a>
+                                      </li>
+                                      <li>
+                                        <a href="{% url "module_content_create" module.id "image" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Image</a>
+                                      </li>
+                                      <li>
+                                        <a href="{% url "module_content_create" module.id "video" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Video</a>
+                                      </li>
+                                      <li>
+                                        <a href="{% url "module_content_create" module.id "file" %}" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">File</a>
+                                      </li>
+                                    </ul>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="text-base font-semibold text-gray-900">No Content</div>
+                        {% endif %}
+                      </div>
+                      <button onclick="history.back()" class="inline-flex text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4">Back to Homepage</button>
+                  </div>   
+              </div>
+          </section>
+            {% endif %}
+          </div>
+      </div>
+  </div>
+</div>
+
+
+{% endwith %}
+{% endblock %}
+
+{% block include_js %}
+<script 
+src="https://cdnjs.cloudflare.com/ajax/libs/html5sortable/0.13.3/html5sortable.min.js">
+</script>
+<!-- Icons below are for demo only. Feel free to use any icon pack. Docs: https://bulma.io/documentation/elements/icon/ -->
+<link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
+{% endblock %}
+
+{% block domready %}
+  var options = {
+      method: 'POST',
+      mode: 'same-origin'
+  }
+
+  const moduleOrderUrl = '{% url "module_order" %}';
+
+  sortable('#modules', {
+    forcePlaceholderSize: true,
+    placeholderClass: 'placeholder'
+  })[0].addEventListener('sortupdate', function(e) {
+
+    modulesOrder = {};
+    var modules = document.querySelectorAll('#modules li');
+    modules.forEach(function (module, index) {
+      // update module index
+      modulesOrder[module.dataset.id] = index;
+      // update index in HTML element
+      module.querySelector('.order').innerHTML = index + 1;
+      // add new order to the HTTP request options
+      options['body'] = JSON.stringify(modulesOrder);
+
+      // send HTTP request
+      fetch(moduleOrderUrl, options)
+    });
+  });
+
+  const contentOrderUrl = '{% url "content_order" %}';
+
+  sortable('#module-contents', {
+    forcePlaceholderSize: true,
+    placeholderClass: 'placeholder'
+  })[0].addEventListener('sortupdate', function(e) {
+
+    contentOrder = {};
+    var contents = document.querySelectorAll('#module-contents tr');
+    contents.forEach(function (content, index) {
+      // update content index
+      contentOrder[content.dataset.id] = index;
+      // add new order to the HTTP request options
+      options['body'] = JSON.stringify(contentOrder);
+
+      // send HTTP request
+      fetch(contentOrderUrl, options)
+    });
+  });
+
+{% endblock %}

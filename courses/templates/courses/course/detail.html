@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% load course %}
+{% block title %}
+  {{ object.title }}
+{% endblock %}
+
+{% block content %}
+  {% with subject=object.subject %}
+    <div>
+      <div class="bg-neutrals-l00 pt-16">
+        <div class="md:container md:mx-auto flex flex-col lg:flex-row">
+          <div class="relative w-full lg:w-1/2 xl:w-3/5">
+            <img
+              src="{% if object.image %}{{ object.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}"
+              class="mx-auto rounded-xl shadow"
+              alt="product image"
+            />
+          </div>
+          <div
+            class="flex justify-center text-center lg:w-1/2 lg:items-center lg:justify-start lg:text-left xl:w-2/5"
+          >
+            <div class="pt-10 sm:pt-12 lg:pl-12 lg:pt-0">
+              <h1 class="font-body text-3xl font-medium text-secondary md:text-4xl">
+                {{ object.title }}
+              </h1>
+              <h2
+                class="pt-6 font-body text-5xl font-bold tracking-wider text-secondary md:text-6xl"
+              >
+                ${{ object.price }}
+              </h2>
+              {% if request.user.is_authenticated %}
+                <form class="flex flex-col gap-4 justify-between pt-10 lg:flex-row" action="{% url "cart_add" object.id %}" method="post">
+                  <div class="flex w-full items-center justify-between font-body text-base text-neutrals-g03">
+                    <span class="font-body text-neutrals-g03">Qty:</span>
+                    {{ cart_course_form }}
+                    {% csrf_token %}
+                  </div>
+                  <input 
+                  class="px-6 py-3 text-white bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg flex items-center justify-center font-body font-semibold uppercase tracking-wide sm:justify-start" 
+                  type="submit" 
+                  value="Add to cart"
+                  >
+                </form>
+              {% else %}
+                <a 
+                href="{% url "student_registration" %}" 
+                class="text-center mt-4 mr-2 flex items-center justify-center rounded-full border border-transparent bg-white px-10 py-4 font-body text-xs font-semibold uppercase tracking-wide text-neutrals-g03 shadow transition duration-300 hover:border-primary hover:text-primary hover:shadow-sm md:py-5 md:text-sm xl:mr-4"
+                >
+                  Register to enroll
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="bg-neutrals-l00 pt-16 pb-16 lg:pb-20">
+      <div class="md:container md:mx-auto">
+        <div
+          class="flex flex-col justify-between rounded-lg bg-white px-6 pt-8 pb-16 shadow sm:px-8 lg:flex-row"
+        >
+          <div class="lg:w-2/3">
+            <div class="text-center md:text-left">
+              <h3
+                class="font-body text-base font-medium uppercase text-primary md:text-lg"
+              >
+                Read first before starting!
+              </h3>
+              <h2
+                class="py-3 font-body text-3xl font-bold leading-tight tracking-wider text-neutrals-g03 sm:py-1 sm:text-4xl md:py-0 lg:text-5xl"
+              >
+                Course description
+              </h2>
+              <div class="flex justify-center pt-4 md:justify-start">
+                <img src="{% static 'img/underline-blue.svg' %}" alt="underline" />
+              </div>
+            </div>
+            <p class="pt-12 font-body text-sm leading-loose text-neutrals-g03">
+              {{ object.overview}}
+              <br />
+            </p>
+          </div>
+          <div class="pt-12 sm:w-1/2 md:w-2/5 lg:w-1/4 lg:pt-0 xl:pl-10">
+            <div class="sticky top-0">
+              
+              <div class="flex justify-between border-b border-neutrals-l03 py-2">
+                <span class="font-body text-sm text-neutrals-g03">
+                  Chapters
+                </span>
+                <span class="font-body text-sm text-neutrals-g03"
+                  >{{ object.modules.count }}</span
+                >
+              </div>
+              
+              <div class="flex justify-between border-b border-neutrals-l03 py-2">
+                <span class="font-body text-sm text-neutrals-g03">
+                  Course Length
+                </span>
+                <span class="font-body text-sm text-neutrals-g03"
+                  >{{ object.courselength|duration }}</span
+                >
+              </div>
+              
+              <div class="flex justify-between border-b border-neutrals-l03 py-2">
+                <span class="font-body text-sm text-neutrals-g03">
+                  Language
+                </span>
+                <span class="font-body text-sm text-neutrals-g03"
+                  >
+                  {% for language in object.languages.all %}
+                    {{language}},
+                  {% endfor %}
+                </span
+                >
+              </div>
+              
+              <div class="flex justify-between border-b border-neutrals-l03 py-2">
+                <span class="font-body text-sm text-neutrals-g03">
+                  Released
+                </span>
+                <span class="font-body text-sm text-neutrals-g03"
+                  >{{ object.created|date:"M d, Y" }}</span
+                >
+              </div>
+              <div
+                class="flex justify-between border-b border-neutrals-l03 py-2 pt-3"
+              >
+                <span class="font-body text-sm text-neutrals-g03">Updated</span>
+                <a
+                  href="{% url "course_list_subject" subject.slug %}"
+                  class="font-body text-sm text-secondary hover:text-primary"
+                  >{{ object.updated|date:"M d, Y" }}</a
+                >
+              </div>
+              
+              <div
+                class="flex justify-between border-b border-neutrals-l03 py-2 pt-3"
+              >
+                <span class="font-body text-sm text-neutrals-g03">Questions?</span>
+                <a
+                  href="mailto:{{object.owner.email}}"
+                  class="font-body text-sm text-secondary hover:text-primary"
+                  >Contact Instructor</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  {% endwith %}
+{% endblock %}

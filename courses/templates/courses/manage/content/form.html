@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block include_head %}
+<link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+<link href="https://unpkg.com/@tailwindcss/custom-forms/dist/custom-forms.min.css" rel="stylesheet">
+{% endblock %}
+{% block title %}
+  {% if object %}
+    Edit content "{{ object.title }}"
+  {% else %}
+    Add new content
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  <section class="bg-white dark:bg-gray-900">
+    <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+          {% if object %}
+            Edit content for "{{ object.title }}"
+          {% else %}
+            Add new content
+          {% endif %}
+        </h2>
+        <form action="" method="post" enctype="multipart/form-data">
+          {{ form|crispy }}
+          {% csrf_token %}
+            <button type="submit" class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-secondary rounded-lg focus:ring-4 focus:ring-secondary dark:focus:ring-secondary hover:bg-secondary">
+              {% if object %}
+              Save Changes for "{{ object.title }}"
+            {% else %}
+              Add new content
+            {% endif %}
+            </button>
+        </form>
+    </div>
+  </section>
+{% endblock %}

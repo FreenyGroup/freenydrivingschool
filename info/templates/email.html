@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+  Contact Us
+{% endblock %}
+{% block content %}
+<!-- component -->
+<div class="flex justify-center items-center py-8 px-4 md:mx-auto lg:py-16 bg-white">
+	<!-- COMPONENT CODE -->
+	<div class="md:container md:mx-auto my-4 px-4 lg:px-20">
+		<div class="w-full p-8 my-4 lg:px-12 xl:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
+			<div class="flex">
+				<h1 class="uppercase text-md font-bold text-5xl text-secondary">Send us a <br /> message</h1>
+			</div>
+			<form action="" method="post" class="mt-5">
+        {% csrf_token %}
+        {{ form|crispy }}
+      </form>
+				<div class="my-2 w-1/2 xl:w-1/4">
+					<button class="text-md font-bold text-white bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg p-3 text-center">
+            Send Message
+          </button>
+				</div>
+		</div>
+    <div
+				class="w-full xl:-mt-[30rem] xl:w-2/6 px-8 py-12 ml-auto bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-2xl">
+				<div class="flex flex-col text-white">
+					<h1 class="font-bold uppercase text-4xl my-4">Drop in our office</h1>
+					<p class="text-white">Whether you're learning for the very first time or you want to brush up on your defensive driving skills, Freeny Driving School has instructors with over several years of experience. Count on us for driver improvement courses and classes for drivers who have had DWI convictions. Your satisfaction is guaranteed.
+					</p>
+
+					<div class="flex my-4 w-2/3 lg:w-1/2">
+            <div class="flex flex-col">
+              <h2 class="text-2xl">Main Office</h2>
+              <p class="text-white">310 Hillwood Ave, Falls Church, VA 22046</p>
+            </div>
+          </div>
+          
+          <div class="flex my-4 w-2/3 lg:w-1/2">
+            <div class="flex flex-col">
+              <h2 class="text-2xl">Call Us</h2>
+              <p class="text-white">Tel: 571-405-9196</p>
+              <p class="text-white">Fax: 571-733-3339</p>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}
