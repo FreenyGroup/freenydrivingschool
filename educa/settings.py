@@ -171,9 +171,9 @@ REST_FRAMEWORK = {
 }
 if DEBUG == False:
     ALLOWED_HOSTS = [
-    'https://warm-atoll-18786.herokuapp.com/',
-    'warm-atoll-18786.herokuapp.com/',
-    'warm-atoll-18786.herokuapp.com'
+    'https://freeny-driving-school.herokuapp.com/'
+    'freeny-driving-school.herokuapp.com/',
+    'freeny-driving-school.herokuapp.com'
     ]
     SECRET_KEY = config('SECRET_KEY')
     DEBUG_PROPAGATE_EXCEPTIONS = True
