@@ -183,10 +183,6 @@ STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
 STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
 STRIPE_API_VERSION = config('STRIPE_API_VERSION')
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 CELERY_BROKER_URL = config('CELERY_BROKER_URL')
 broker_url = config('broker_url')
 GOOGLE_MAPS_API_KEY=config('GOOGLE_MAPS_API_KEY')
@@ -207,8 +203,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
 MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 EMAIL_BACKEND = config('EMAIL_BACKEND')
 ADMIN_EMAIL = ['contact@freenydrivingschool.com']
 CONTACT_EMAIL = 'contact@freenydrivingschool.com'
@@ -216,7 +210,7 @@ EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_USE_TLS = config('EMAIL_USE_TLS')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 # End Of Enter Settings Here #
 
 def get_cache():
