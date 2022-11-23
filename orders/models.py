@@ -1,7 +1,6 @@
 from decimal import Decimal
-from unittest.util import _MAX_LENGTH
 from django.core.validators import MinValueValidator, \
-                                   MaxValueValidator
+    MaxValueValidator
 from django.db import models
 from django.conf import settings
 from courses.models import Course
@@ -14,16 +13,18 @@ class Order(models.Model):
     id = models.BigAutoField(
         primary_key=True
     )
-    first_name = models.CharField('first_name',max_length=50)
-    last_name = models.CharField('last_name',max_length=50)
+    first_name = models.CharField('first_name', max_length=50)
+    last_name = models.CharField('last_name', max_length=50)
     email = models.EmailField('e-mail')
-    ship_address = models.CharField('ship_address',max_length=250)
-    address2 = models.CharField('address2',max_length=250)
-    locality = models.CharField('locality',max_length=250)
-    state = models.CharField('state',max_length=250)
-    postcode = models.CharField('postcode',max_length=250)
-    country = models.CharField('country',max_length=250)
-    phone = models.CharField(validators=[RegexValidator(regex=r'^\+?1?\d{9,11}$', message='Phone number must be 9-11 characters', code='invalid_phone_number')], max_length=11, null=True,blank=True) 
+    ship_address = models.CharField('ship_address', max_length=250)
+    address2 = models.CharField('address2', max_length=250)
+    locality = models.CharField('locality', max_length=250)
+    state = models.CharField('state', max_length=250)
+    postcode = models.CharField('postcode', max_length=250)
+    country = models.CharField('country', max_length=250)
+    phone = models.CharField(validators=[
+        RegexValidator(regex=r'^\+?1?\d{9,11}$', message='Phone number must be 9-11 characters',
+                       code='invalid_phone_number')], max_length=11, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     paid = models.BooleanField(default=False)
@@ -35,7 +36,7 @@ class Order(models.Model):
                                on_delete=models.SET_NULL)
     discount = models.IntegerField(default=0,
                                    validators=[MinValueValidator(0),
-                                       MaxValueValidator(100)])
+                                               MaxValueValidator(100)])
 
     class Meta:
         ordering = ['-created']
@@ -80,8 +81,8 @@ class OrderItem(models.Model):
                               related_name='items',
                               on_delete=models.CASCADE)
     course = models.ForeignKey(Course,
-                                related_name='order_items',
-                                on_delete=models.CASCADE)
+                               related_name='order_items',
+                               on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10,
                                 decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)

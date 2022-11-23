@@ -27,7 +27,7 @@ from durationwidget.widgets import TimeDurationWidget
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-def error_404_view(request, exception):
+def error_404_view(request):
    
     # we add the path to the the 404.html file
     # here. The name of our HTML file is 404.html

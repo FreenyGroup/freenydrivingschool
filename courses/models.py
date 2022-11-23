@@ -29,6 +29,8 @@ class Language(models.Model):
         return self.title
 
 class Course(models.Model):
+    def upload_photo_to(self, filename):
+            return f'{self.title}/{filename}'
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               related_name='courses_created',
                               on_delete=models.CASCADE)
@@ -38,7 +40,8 @@ class Course(models.Model):
     languages = models.ManyToManyField(Language,
                                 related_name='course_languages',)
     courselength = models.DurationField(blank=True,null=True)
-    title = models.CharField(max_length=200)
+    title = models.CharField(
+        max_length=200,)
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
     price = models.FloatField(
@@ -48,8 +51,7 @@ class Course(models.Model):
             validators.MaxValueValidator(1000)
         ]
     )
-    image = models.ImageField(upload_to='courses/%Y/%m/%d',
-                              blank=True)
+    image = models.ImageField(upload_to=upload_photo_to, blank=True)
     
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)

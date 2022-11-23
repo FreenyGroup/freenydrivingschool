@@ -34,9 +34,11 @@
   <div class="relative overflow-hidden" id="about-us">
       <div class="bg-top bg-cover bg-no-repeat w-80 h-80 absolute bottom-0 left-0 -ml-40 mb-12"
       
-           style="background-image: url({% static "img/about-ellipseFS.svg" %});"></div>
+           style="background-image: url({% static "img/about-ellipseFS.svg" %});">
+      </div>
       <div class="bg-top bg-cover bg-no-repeat w-56 h-76 absolute top-0 right-0 -mr-28 md:mt-32 lg:mt-0"
-           style="background-image: url({% static "img/about-figureFS.svg" %});"></div>
+           style="background-image: url({% static "img/about-figureFS.svg" %});">
+      </div>
       <div
            class="container pt-20 sm:pt-24 md:pt-16 lg:pt-24 sm:pb-16 lg:pb-24 flex flex-col lg:flex-row justify-between items-center z-20 relative">
           <div class="lg:w-2/5 text-center lg:text-left">
@@ -52,24 +54,27 @@
                        alt="underline">
               </div>
               <p class="font-body text-neutrals-g03 text-sm leading-loose pt-10">
-                FREENY Driving School VA is a group of certified driving instructors, who serve the most comprehensive program developed for the purpose of providing important information relating to the needs of new and experienced motorists. Many driving schools in the area will teach you or your child how to drive, but at FREENY Driving School, not only we teach how to drive, but also teach how to be a safe, responsible, and a defensive driver. Our curriculum is designed to meet the developmental needs of you or your child and incorporates learning with highly qualified instructors.      
-                <br /> <br />
-  
-                Remember, driving is privilege, not a right. We’ll help you get there faster and give you the necessary skills to maintain this privilege! To enter this privilege and to maintain it, you will need attention to detail. We believe that the rules of the road, like the rules of playing a piano, are learned by going into details and practice. We accomplish just that and focus on individual details required of people with honesty and hard work. We understand that learning how to drive is a rite of passage towards a more independent life and we take that very seriously. We put our honest and hard efforts to make each client learn the right way and try to make it as easy as possible.          </div>
+                FREENY Driving School VA is a group of certified driving instructors, who serve the most comprehensive program developed for the purpose of providing important information relating to the needs of new and experienced motorists. Many driving schools in the area will teach you or your child how to drive, but at FREENY Driving School, not only we teach how to drive, but also teach how to be a safe, responsible, and a defensive driver. Our curriculum is designed to meet the developmental needs of you or your child and incorporates learning with highly qualified instructors.
+              </p>      
+                <br /> 
+                <br />
+                Remember, driving is privilege, not a right. We’ll help you get there faster and give you the necessary skills to maintain this privilege! To enter this privilege and to maintain it, you will need attention to detail. We believe that the rules of the road, like the rules of playing a piano, are learned by going into details and practice. We accomplish just that and focus on individual details required of people with honesty and hard work. We understand that learning how to drive is a rite of passage towards a more independent life and we take that very seriously. We put our honest and hard efforts to make each client learn the right way and try to make it as easy as possible.          
+          </div>
           <div class="w-full lg:w-1/2 relative mt-16">
               <div
                    class="bg-primary w-84 h-72 sm:h-96 xl:h-100 mx-auto lg:mx-0 lg:ml-auto">
               </div>
               <div class="absolute right-0 top-0 bg-center bg-cover bg-no-repeat w-84 sm:w-120 xl:w-132 h-56 sm:h-80 xl:h-84 mt-8 mr-1 sm:mr-16 md:mr-32 lg:mr-8"
-                   style="background-image: url({% static "img/blog-image-01FS.jpg" %});"></div>
+                   style="background-image: url({% static "img/blog-image-01FS.jpg" %});">
+              </div>
           </div>
       </div>
   </div>
   <!-- Digital Products -->
   <div class="relative overflow-hidden">
-      <div class="bg-figure bg-cover bg-top bg-no-repeat absolute top-0 left-0 -ml-140 lg:-ml-128 sm:mt-10 md:mt-20"
-      
-           style="background-image: url({% static "img/product-bg-figureFS.svg" %});"></div>
+      <div class="bg-cover bg-top bg-no-repeat absolute top-0 left-0 -ml-140 lg:-ml-128 sm:mt-10 md:mt-20"   
+           style="background-image: url({% static "img/product-bg-figureFS.svg" %});">
+      </div>
       <div class="container pt-16 lg:pt-24 pb-24 lg:pb-40 z-20 relative">
           <div class="text-center w-full md:w-2/3 xl:w-1/2 mx-auto">
               <h4
@@ -84,7 +89,7 @@
                        alt="underline">
               </div>
           </div>
-          <div
+            <div
                class="pt-16">
               <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
                 {% for course in courses %}
@@ -100,7 +105,8 @@
                         class="block h-56 rounded-t-lg bg-cover bg-center bg-no-repeat sm:h-72 md:h-56 lg:h-48 xl:h-56"
                         
                         style="background-image: url({% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %});"
-                      ></span>
+                      >
+                      </span>
                       <span
                         class="block border-b border-neutrals-g01 bg-white px-5 py-8 lg:px-3 xl:px-5"
                       >
@@ -126,10 +132,9 @@
                             class="block pl-1 font-body text-sm font-medium text-neutrals-g03" 
                             href="{% url "course_list_subject" subject.slug %}">
                             {{ subject }}
-                            </>
+                            </span>
                           </span>
                         </span>
-                      </span>
                       <span
                         class="flex items-center justify-between rounded-b-lg bg-white px-5 py-4 lg:px-3 xl:px-5"
                       >
@@ -144,11 +149,12 @@
                           ${{course.price}}
                         </h2>
                       </span>
+                      </span>
                     </span>
                   </a>
                 {% endwith %}
                 {% endfor %}
-            </div>
+              </div>
             </div>
             <div class="flex justify-center pt-16">
                 <a href="{% url "course_list" %}"
@@ -164,38 +170,38 @@
            style="background-image: url({% static "img/blog-ellipseFS.svg" %});">
       </div>
       <div class="mt-5 container pb-16 lg:pb-24 z-20 relative">
-          <div class="text-center">
-              <h4
-                  class="font-body font-medium text-primary text-base md:text-lg uppercase">
-                  About Freeny Driving School </h4>
-              <h2
-                  class="font-body font-bold text-neutrals-g03 text-3xl sm:text-4xl lg:text-5xl tracking-wider">
-                  Here's why you should try us</h2>
-              <div class="pt-4 md:pt-6">
-                  <img src="{% static 'img/underline-blue.svg' %}"
-                       class="mx-auto"
-                       alt="underline">
-              </div>
-          </div>
-          <div
+            <div class="text-center">
+                <h4
+                    class="font-body font-medium text-primary text-base md:text-lg uppercase">
+                    About Freeny Driving School </h4>
+                <h2
+                    class="font-body font-bold text-neutrals-g03 text-3xl sm:text-4xl lg:text-5xl tracking-wider">
+                    Here's why you should try us</h2>
+                <div class="pt-4 md:pt-6">
+                    <img src="{% static 'img/underline-blue.svg' %}"
+                          class="mx-auto"
+                          alt="underline">
+                </div>
+            </div>
+            <div
                class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 xl:gap-10 pt-10">
-              <div class="px-3 py-8 text-center rounded-lg">
-                  <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
-                     <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7">
-                      </path>
-                    </svg>
-                  </div>
-                  <h3
-                        class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
-                        Servicing the DC, MD, & VA area 
-                  </h3>
-                  <p
-                     class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
-                     We realize that not everyone lives near our Falls Church, VA location, that’s why we offer our new Online “DIGITAL” Driving Course. We also offer the option to take one or more in-car lessons in Falls Church or in other nearby cities, for those of you that would like more experience driving in a larger, busy city center.              
-                  </p>
-              </div>
-              <div class="px-3 py-8 text-center rounded-lg">
+            <div class="px-3 py-8 text-center rounded-lg">
+                <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
+                    <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7">
+                    </path>
+                  </svg>
+                </div>
+                <h3
+                      class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
+                      Servicing the DC, MD, & VA area 
+                </h3>
+                <p
+                    class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
+                    We realize that not everyone lives near our Falls Church, VA location, that’s why we offer our new Online “DIGITAL” Driving Course. We also offer the option to take one or more in-car lessons in Falls Church or in other nearby cities, for those of you that would like more experience driving in a larger, busy city center.              
+                </p>
+            </div>
+            <div class="px-3 py-8 text-center rounded-lg">
                 <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
                   <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9 17a2 2 0 11-4 0 2 2 0 014 0zM19 17a2 2 0 11-4 0 2 2 0 014 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0"></path></svg>
                 </div>
@@ -207,7 +213,6 @@
                    class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
                    Your safety is our top priority, which is why we provide all of our students with our most qualified vehicles. All vehicles are checked for maintenance and safety prior to being taken out for lessons.
                 </p>
-
             </div>
             <div class="px-3 py-8 text-center rounded-lg">
               <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
@@ -221,49 +226,46 @@
                  class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
                  We understand that you’re busy and may miss a required course class. Don’t worry, we allow you to finish the missed class(s) on one of our other scheduled course dates!              
               </p>
-          </div>
-              <div class="px-3 py-8 text-center rounded-lg">
-                  <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
-                    <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                  </div>
-                  <h3
-                        class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
-                        Online Classes 
-                  </h3>
-                  <p
-                     class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
-                     We offer the same classes now online. Get a start on your Beginners Driving Course from home with the same support from our instructors.              
-                  </p>
-              </div>
-              
-              <div class="px-3 py-8 text-center rounded-lg">
-                  <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
-                    <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                  </div>
-                  <h3
-                        class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
-                        More Practice 
-                  </h3>
-                  <p
-                     class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
-                     We offer longer in-car lessons, which means more practice time. Lessons are typically 1-hour but can be increased to 2-hours, depending on the flexibility of your schedule              
-                  </p>
-              </div>
-              
-              <div class="px-3 py-8 text-center rounded-lg">
-                  <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
-                    <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>                  
-                  </div>
-                  <h3
-                        class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
-                        Bring a Buddy & Save
-                  </h3>
-                  <p
-                     class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
-                     If you refer anyone to Our Driving School and they register with us, you and your friend will receive a $15 discount!              
-                  </p>
-              </div>
-              
+            </div>
+            <div class="px-3 py-8 text-center rounded-lg">
+                <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
+                  <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3
+                      class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
+                      Online Classes 
+                </h3>
+                <p
+                    class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
+                    We offer the same classes now online. Get a start on your Beginners Driving Course from home with the same support from our instructors.              
+                </p>
+            </div>
+            <div class="px-3 py-8 text-center rounded-lg">
+                <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
+                  <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <h3
+                      class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
+                      More Practice 
+                </h3>
+                <p
+                    class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
+                    We offer longer in-car lessons, which means more practice time. Lessons are typically 1-hour but can be increased to 2-hours, depending on the flexibility of your schedule              
+                </p>
+            </div>
+            <div class="px-3 py-8 text-center rounded-lg">
+                <div class="mb-2 w-20 lg:w-24 h-20 lg:h-24 mx-auto text-[#B25C43]">
+                  <svg class="w-24 h-24" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>                  
+                </div>
+                <h3
+                      class="text-3xl font-extrabold text-neutrals-g03 tracking-wide pt-2 block">
+                      Bring a Buddy & Save
+                </h3>
+                <p
+                    class="font-body text-neutrals-g03 text-sm leading-relaxed pt-6">
+                    If you refer anyone to Our Driving School and they register with us, you and your friend will receive a $15 discount!              
+                </p>
+            </div>
           </div>
       </div>
   </div>

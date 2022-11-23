@@ -50,7 +50,7 @@
                         <td class="hidden lg:block p-4 w-32">
                             <img class="rounded-lg" src="{% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" alt="{{course.title}}">
                         </td>
-                        <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                        <td class="py-4 px-6 font-semibold">
                           <div class="flex flex-col">
                             {{ course.title }}
                             <form action="{% url "cart_remove" course.id %}" method="post">
@@ -61,7 +61,7 @@
                             </form>
                           </div>
                         </td>
-                        <td class="py-4 px-6">
+                        <td class="py-4 px-6 font-semibold">
                             <form class="flex items-center" action="{% url "cart_add" course.id %}" method="post">
                               {% csrf_token %}   
                               {{ item.update_quantity_form.quantity }}
@@ -72,10 +72,10 @@
                               </button>
                             </form>
                         </td>
-                        <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
+                        <td class="py-4 px-6 font-semibold">
                           ${{ item.price }}
                         </td>
-                        <td class="py-4 px-6">
+                        <td class="py-4 px-6 font-semibold">
                           ${{ item.total_price }}                        
                         </td>
                     </tr>
@@ -126,6 +126,7 @@
                   <span class="ml-2 mt-5px">Procceed to checkout</span>
                 </button>
               </a>
+            </div>
             </div>
           </div>
         </div>

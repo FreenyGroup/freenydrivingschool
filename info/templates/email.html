@@ -16,12 +16,12 @@
 			<form action="" method="post" class="mt-5">
         {% csrf_token %}
         {{ form|crispy }}
-      </form>
-				<div class="my-2 w-1/2 xl:w-1/4">
-					<button class="text-md font-bold text-white bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg p-3 text-center">
+        <div class="my-2 w-1/2 xl:w-1/4">
+					<button type="submit" class="text-md font-bold text-white bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg p-3 text-center">
             Send Message
           </button>
 				</div>
+      </form>
 		</div>
     <div
 				class="w-full xl:-mt-[30rem] xl:w-2/6 px-8 py-12 ml-auto bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-2xl">
