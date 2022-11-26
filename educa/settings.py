@@ -18,7 +18,7 @@ from decouple import config
 from django.urls import reverse_lazy
 
 load_dotenv(find_dotenv())
-DEBUG=False
+DEBUG=True
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

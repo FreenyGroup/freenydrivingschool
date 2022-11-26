@@ -30,7 +30,7 @@ class Language(models.Model):
 
 class Course(models.Model):
     def upload_photo_to(self, filename):
-            return f'{self.title}/{filename}'
+            return f'courseimages/{self.title}/{filename}'
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               related_name='courses_created',
                               on_delete=models.CASCADE)
