@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from functools import cache
 from pathlib import Path
 import os
@@ -17,7 +16,6 @@ import django_on_heroku
 import dj_database_url
 from dotenv import load_dotenv, find_dotenv
 from decouple import config
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 
 load_dotenv(find_dotenv())
@@ -45,8 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_extensions',
     'storages',
+    'django_extensions',
     'courses.apps.CoursesConfig',
     'students.apps.StudentsConfig',
     'cart.apps.CartConfig',
@@ -158,6 +156,9 @@ LOGIN_REDIRECT_URL = reverse_lazy('student_course_list')
 
 CART_SESSION_ID = 'cart'
 
+INTERNAL_IPS = [
+    '127.0.0.1',
+]
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -167,7 +168,6 @@ REST_FRAMEWORK = {
 
 if DEBUG == True:
     ALLOWED_HOSTS = ['*']
-    INTERNAL_IPS = ['*']
     SECRET_KEY = config('SECRET_KEY')
     DEBUG_PROPAGATE_EXCEPTIONS = True
     LOGGING = {
@@ -211,9 +211,9 @@ if DEBUG == True:
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
     SECURE_SSL_REDIRECT = False
-    #CACHE_MIDDLEWARE_ALIAS = 'default'
-    #CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
-    #CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
+    CACHE_MIDDLEWARE_ALIAS = 'default'
+    CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
     STATIC_URL = 'static/'
     STATIC_ROOT = BASE_DIR / 'static'
     MEDIA_URL = 'media/'
@@ -222,8 +222,12 @@ if DEBUG == True:
     EMAIL_USE_TLS = True
 
 if DEBUG == False:
-    ALLOWED_HOSTS = ['*']
-    INTERNAL_IPS = ['*']
+    ALLOWED_HOSTS = [
+        'https://freeny-driving-school.herokuapp.com/',
+        'https://freeny-driving-school.herokuapp.com',
+        'freeny-driving-school.herokuapp.com/',
+        'freeny-driving-school.herokuapp.com'
+        ]
     SECRET_KEY = config('SECRET_KEY')
     DEBUG_PROPAGATE_EXCEPTIONS = True
     LOGGING = {
