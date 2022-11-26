@@ -23,6 +23,7 @@ django-durationwidget2==1.0.6
 django-embed-video==1.4.8
 django-extensions==3.2.1
 django-on-heroku==1.1.2
+django-pylibmc==0.6.1
 django-storages==1.13.1
 djangorestframework==3.14.0
 fonttools==4.38.0
