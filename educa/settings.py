@@ -165,67 +165,124 @@ REST_FRAMEWORK = {
     ]
 }
 
-ALLOWED_HOSTS = ['*']
-INTERNAL_IPS = ['*']
-SECRET_KEY = config('SECRET_KEY')
-DEBUG_PROPAGATE_EXCEPTIONS = True
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'formatters': {
-        'verbose': {
-            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-            'datefmt' : "%d/%b/%Y %H:%M:%S"
+if DEBUG == True:
+    ALLOWED_HOSTS = ['*']
+    INTERNAL_IPS = ['*']
+    SECRET_KEY = config('SECRET_KEY')
+    DEBUG_PROPAGATE_EXCEPTIONS = True
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+                'datefmt' : "%d/%b/%Y %H:%M:%S"
+            },
+            'simple': {
+                'format': '%(levelname)s %(message)s'
+            },
         },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+            },
         },
-    },
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'educa': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
+        'loggers': {
+            'educa': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+            },
+        }
     }
-}
 
-django_on_heroku.settings(locals(), staticfiles=False)
-STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
-STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
-STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
-STRIPE_API_VERSION = config('STRIPE_API_VERSION')
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
-CELERY_BROKER_URL = config('CELERY_BROKER_URL')
-broker_url = config('broker_url')
-GOOGLE_MAPS_API_KEY=config('GOOGLE_MAPS_API_KEY')
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
-CACHE_MIDDLEWARE_ALIAS = 'default'
-CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
-CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
-AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-AWS_DEFAULT_ACL = 'public-read'
-AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
-AWS_LOCATION = 'static'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+    django_on_heroku.settings(locals())
+    STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+    STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+    STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+    STRIPE_API_VERSION = config('STRIPE_API_VERSION')
+    EMAIL_BACKEND = config('EMAIL_BACKEND')
+    EMAIL_HOST = config('EMAIL_HOST')
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
+    CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+    broker_url = config('broker_url')
+    GOOGLE_MAPS_API_KEY=config('GOOGLE_MAPS_API_KEY')
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
+    SECURE_SSL_REDIRECT = False
+    #CACHE_MIDDLEWARE_ALIAS = 'default'
+    #CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+    #CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
+    STATIC_URL = 'static/'
+    STATIC_ROOT = BASE_DIR / 'static'
+    MEDIA_URL = 'media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
+
+if DEBUG == False:
+    ALLOWED_HOSTS = ['*']
+    INTERNAL_IPS = ['*']
+    SECRET_KEY = config('SECRET_KEY')
+    DEBUG_PROPAGATE_EXCEPTIONS = True
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+                'datefmt' : "%d/%b/%Y %H:%M:%S"
+            },
+            'simple': {
+                'format': '%(levelname)s %(message)s'
+            },
+        },
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'educa': {
+                'handlers': ['console'],
+                'level': 'DEBUG',
+            },
+        }
+    }
+
+    django_on_heroku.settings(locals(), staticfiles=False)
+    STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
+    STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
+    STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
+    STRIPE_API_VERSION = config('STRIPE_API_VERSION')
+    EMAIL_BACKEND = config('EMAIL_BACKEND')
+    EMAIL_HOST = config('EMAIL_HOST')
+    EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = config('SENDGRID_API_KEY')
+    CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+    broker_url = config('broker_url')
+    GOOGLE_MAPS_API_KEY=config('GOOGLE_MAPS_API_KEY')
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
+    CACHE_MIDDLEWARE_ALIAS = 'default'
+    CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+    CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
+    AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+    AWS_LOCATION = 'static'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
 
 def get_cache():
   import os
