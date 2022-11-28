@@ -226,10 +226,18 @@ if DEBUG == False:
         'https://freeny-driving-school.herokuapp.com',
         'freeny-driving-school.herokuapp.com/',
         'freeny-driving-school.herokuapp.com',
+        'https://www.freeny-driving-school.herokuapp.com/',
+        'https://www.freeny-driving-school.herokuapp.com',
+        'www.freeny-driving-school.herokuapp.com/',
+        'www.freeny-driving-school.herokuapp.com',
         'https://freenydrivingschool.com/',
         'https://freenydrivingschool.com',
         'freenydrivingschool.com/',
-        'freenydrivingschool.com'
+        'freenydrivingschool.com',
+        'https://www.freenydrivingschool.com/',
+        'https://www.freenydrivingschool.com',
+        'www.freenydrivingschool.com/',
+        'www.freenydrivingschool.com'
         ]
     SECRET_KEY = config('SECRET_KEY')
     DEBUG_PROPAGATE_EXCEPTIONS = True
