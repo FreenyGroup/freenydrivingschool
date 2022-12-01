@@ -162,14 +162,14 @@ if DEBUG == True:
 
 if DEBUG == False:
     ALLOWED_HOSTS = [
-        'https://freeny-driving-school.herokuapp.com/',
-        'https://freeny-driving-school.herokuapp.com',
-        'freeny-driving-school.herokuapp.com/',
-        'freeny-driving-school.herokuapp.com',
-        'https://www.freeny-driving-school.herokuapp.com/',
-        'https://www.freeny-driving-school.herokuapp.com',
-        'www.freeny-driving-school.herokuapp.com/',
-        'www.freeny-driving-school.herokuapp.com',
+        'https://freenydrivingschool.herokuapp.com/',
+        'https://freenydrivingschool.herokuapp.com',
+        'freenydrivingschool.herokuapp.com/',
+        'freenydrivingschool.herokuapp.com',
+        'https://www.freenydrivingschool.herokuapp.com/',
+        'https://www.freenydrivingschool.herokuapp.com',
+        'www.freenydrivingschool.herokuapp.com/',
+        'www.freenydrivingschool.herokuapp.com',
         'https://freenydrivingschool.com/',
         'https://freenydrivingschool.com',
         'freenydrivingschool.com/',
