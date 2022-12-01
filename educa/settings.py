@@ -282,5 +282,3 @@ CONTACT_EMAIL='contact@freenydrivingschool.com'
 
 ADMIN_EMAIL=['contact@freenydrivingschool.com']
 
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-
