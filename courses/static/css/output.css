@@ -2590,6 +2590,10 @@ input:checked + .toggle-bg {
   margin-left: 0.75rem;
 }
 
+.ml-6 {
+  margin-left: 1.5rem;
+}
+
 .block {
   display: block;
 }
@@ -2848,6 +2852,10 @@ input:checked + .toggle-bg {
   width: 12rem;
 }
 
+.w-36 {
+  width: 9rem;
+}
+
 .min-w-full {
   min-width: 100%;
 }
@@ -2898,6 +2906,10 @@ input:checked + .toggle-bg {
 
 .max-w-screen-lg {
   max-width: 1024px;
+}
+
+.max-w-xs {
+  max-width: 20rem;
 }
 
 .flex-1 {
@@ -3103,6 +3115,10 @@ input:checked + .toggle-bg {
   gap: 4rem;
 }
 
+.gap-12 {
+  gap: 3rem;
+}
+
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
@@ -3161,6 +3177,12 @@ input:checked + .toggle-bg {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
+}
+
+.space-x-5 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1.25rem * var(--tw-space-x-reverse));
+  margin-left: calc(1.25rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .divide-x-2 > :not([hidden]) ~ :not([hidden]) {
@@ -3649,6 +3671,10 @@ input:checked + .toggle-bg {
   padding: 0.375rem;
 }
 
+.p-20 {
+  padding: 5rem;
+}
+
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -3884,6 +3910,10 @@ input:checked + .toggle-bg {
 
 .pb-4 {
   padding-bottom: 1rem;
+}
+
+.pl-10 {
+  padding-left: 2.5rem;
 }
 
 .text-left {
@@ -4133,6 +4163,10 @@ input:checked + .toggle-bg {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.underline-offset-4 {
+  text-underline-offset: 4px;
 }
 
 .antialiased {
@@ -4484,6 +4518,10 @@ a {
   text-decoration-line: underline;
 }
 
+.hover\:no-underline:hover {
+  text-decoration-line: none;
+}
+
 .hover\:opacity-75:hover {
   opacity: 0.75;
 }
@@ -4658,6 +4696,11 @@ a {
   --tw-ring-color: rgb(104 117 245 / var(--tw-ring-opacity));
 }
 
+.focus\:ring-gray-50:focus {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(249 250 251 / var(--tw-ring-opacity));
+}
+
 .focus\:ring-opacity-50:focus {
   --tw-ring-opacity: 0.5;
 }
@@ -4683,6 +4726,11 @@ a {
 .dark .dark\:divide-gray-700 > :not([hidden]) ~ :not([hidden]) {
   --tw-divide-opacity: 1;
   border-color: rgb(55 65 81 / var(--tw-divide-opacity));
+}
+
+.dark .dark\:divide-gray-600 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(75 85 99 / var(--tw-divide-opacity));
 }
 
 .dark .dark\:border {
@@ -4804,6 +4852,16 @@ a {
 .dark .dark\:text-secondary {
   --tw-text-opacity: 1;
   color: rgb(139 40 62 / var(--tw-text-opacity));
+}
+
+.dark .dark\:placeholder-gray-400::-moz-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
+}
+
+.dark .dark\:placeholder-gray-400::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-placeholder-opacity));
 }
 
 .dark .dark\:format-invert {
@@ -5133,6 +5191,20 @@ a {
     border-radius: 1.5rem;
   }
 
+  .sm\:rounded-none {
+    border-radius: 0px;
+  }
+
+  .sm\:rounded-l-lg {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+  }
+
+  .sm\:rounded-r-lg {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+
   .sm\:p-5 {
     padding: 1.25rem;
   }
@@ -5235,6 +5307,10 @@ a {
 
   .sm\:pb-48 {
     padding-bottom: 12rem;
+  }
+
+  .sm\:text-center {
+    text-align: center;
   }
 
   .sm\:text-lg {
@@ -5580,6 +5656,10 @@ a {
     margin-top: 0.5rem;
   }
 
+  .md\:mb-12 {
+    margin-bottom: 3rem;
+  }
+
   .md\:flex {
     display: flex;
   }
@@ -5709,6 +5789,10 @@ a {
 
   .md\:p-0 {
     padding: 0px;
+  }
+
+  .md\:p-8 {
+    padding: 2rem;
   }
 
   .md\:px-6 {
@@ -5894,6 +5978,11 @@ a {
     margin-right: -2rem;
   }
 
+  .lg\:my-8 {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
   .lg\:mb-8 {
     margin-bottom: 2rem;
   }
@@ -5944,6 +6033,10 @@ a {
 
   .lg\:mb-16 {
     margin-bottom: 4rem;
+  }
+
+  .lg\:ml-12 {
+    margin-left: 3rem;
   }
 
   .lg\:block {
@@ -6034,6 +6127,10 @@ a {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .lg\:grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
   .lg\:flex-row {
     flex-direction: row;
   }
@@ -6081,6 +6178,10 @@ a {
 
   .lg\:p-5 {
     padding: 1.25rem;
+  }
+
+  .lg\:p-10 {
+    padding: 2.5rem;
   }
 
   .lg\:py-16 {
@@ -6244,6 +6345,11 @@ a {
   .lg\:text-6xl {
     font-size: 3.75rem;
     line-height: 1;
+  }
+
+  .lg\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 
   .lg\:format-lg {
