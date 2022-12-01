@@ -35,7 +35,7 @@ class AddCourseForm(forms.ModelForm):
 ), required=False)
     class Meta:
         model = Course
-        fields = ['title', 'subject', 'slug', 'price', 'overview', 'image', 'languages', 'courselength']
+        fields = ['title', 'subject', 'slug', 'price', 'overview', 'image', 'languages', 'courselength', 'status']
 
 
 

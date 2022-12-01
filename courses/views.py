@@ -47,7 +47,7 @@ class OwnerCourseMixin(OwnerMixin,
                        LoginRequiredMixin,
                        PermissionRequiredMixin):
     model = Course
-    fields = ['title', 'subject', 'slug', 'price', 'overview', 'image', 'available', 'courselength', 'languages']
+    fields = ['title', 'subject', 'slug', 'price', 'overview', 'image', 'available', 'courselength', 'languages', 'status']
     success_url = reverse_lazy('manage_course_list')
 
 
@@ -82,6 +82,8 @@ class CourseUpdateView(OwnerCourseEditMixin, UpdateView):
         form.fields['title'].widget.attrs.update({'class':'shadow-lg-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5'
         })
         form.fields['subject'].widget.attrs.update({'class':'shadow-lg-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5'
+        })
+        form.fields['status'].widget.attrs.update({'class':'shadow-lg-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5'
         })
         form.fields['price'].widget.attrs.update({'class':'shadow-lg-sm border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-2 focus:ring-fuchsia-50 focus:border-fuchsia-300 block w-full p-2.5'
         })

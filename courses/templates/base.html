@@ -74,7 +74,6 @@
   <body>
     <div id="main" x-data="{ mobileMenu: false }" class="relative" :class="{ 'max-h-screen overflow-hidden' : mobileMenu }" >
     {% if request.path != "/" %}
-    
     <div x-data="{isCartOpen: false}">
       <div
            class="relative bg-cover bg-bottom bg-no-repeat" style="background-image: url({% static "img/bg-cta-desktopFS.jpg" %});" 
@@ -467,16 +466,23 @@
     </div>
     {% endif %}
     <div>
-      {{ redirect_to_login_immediately }}
+      {% if request.path != "/" %}
+      <button onclick="history.back()" class="relative inline-flex items-center justify-start py-3 pl-4 pr-12 overflow-hidden font-semibold text-secondary rounded border-b-4 border-r-4 border-secondary">
+        <span class="absolute right-0 pr-4">
+        <svg class="w-5 h-5 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.333 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z"></path></svg>
+        </span>
+        <span class="relative w-full text-left ">Go Back</span>
+      </button>
+      {% endif %}
       {% block content %}
       {% endblock %}
-<div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-20">
-  <div>
-    <a title="contact us" href="{% url "contact" %}" class="block w-13 h-13 rounded-full transition-all border-solid border-2 border-secondary hover:shadow-lg transform hover:scale-110 hover:rotate-12">
-      <svg class="object-cover object-center w-full h-full rounded-full w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-    </a>
-  </div>
-</div>
+    <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-20">
+      <div>
+        <a title="contact us" href="{% url "contact" %}" class="block w-13 h-13 rounded-full transition-all border-solid border-2 border-secondary hover:shadow-lg transform hover:scale-110 hover:rotate-12">
+          <svg class="object-cover object-center w-full h-full rounded-full w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        </a>
+      </div>
+    </div>
     </div>
     <div
     class="h-full w-full bg-cover bg-center bg-no-repeat"

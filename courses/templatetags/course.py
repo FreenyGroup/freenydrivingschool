@@ -37,8 +37,8 @@ def model_name(obj):
         return None
 
 @register.filter
-def module_name(things, category):
-    return things.filter(category=category)
+def module_name(things, subject):
+    return things.filter(subject=subject)
 
 @register.filter(name='has_group')
 def has_group(user, group_name):
