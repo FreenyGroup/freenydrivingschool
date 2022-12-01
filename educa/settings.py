@@ -179,7 +179,16 @@ if DEBUG == False:
         'www.freenydrivingschool.com/',
         'www.freenydrivingschool.com'
         ]
-    CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS.copy()
+    CSRF_TRUSTED_ORIGINS = [
+        'https://freenydrivingschool.herokuapp.com/',
+        'https://freenydrivingschool.herokuapp.com',
+        'https://www.freenydrivingschool.herokuapp.com/',
+        'https://www.freenydrivingschool.herokuapp.com',
+        'https://freenydrivingschool.com/',
+        'https://freenydrivingschool.com',
+        'https://www.freenydrivingschool.com/',
+        'https://www.freenydrivingschool.com',
+        ]
     SECRET_KEY = config('SECRET_KEY')
     DEBUG_PROPAGATE_EXCEPTIONS = True
     LOGGING = {
