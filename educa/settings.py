@@ -134,7 +134,7 @@ REST_FRAMEWORK = {
 }
 
 if DEBUG == True:
-    ALLOWED_HOSTS = ['192.168.0.101', 'localhost', '127.0.0.1', '[::1]']
+    ALLOWED_HOSTS = ['192.168.0.101', 'localhost', '127.0.0.1', '[::1]', '0.0.0.0']
     SECRET_KEY = config('SECRET_KEY')
     STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
     STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
@@ -179,6 +179,7 @@ if DEBUG == False:
         'www.freenydrivingschool.com/',
         'www.freenydrivingschool.com'
         ]
+    CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS.copy()
     SECRET_KEY = config('SECRET_KEY')
     DEBUG_PROPAGATE_EXCEPTIONS = True
     LOGGING = {
