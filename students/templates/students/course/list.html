@@ -6,91 +6,90 @@
     <div>
       <div class="bg-neutrals-l00">
         <div class="container pt-10 pb-40 sm:pt-16 sm:pb-48 md:pb-36 xl:pb-40">
-          <div class="text-center">
-              <h1
-                class="font-body text-4xl font-medium text-secondary lg:text-5xl xl:text-6xl"
-              >
+          <div class="lg:flex lg:items-center lg:justify-between">
+            <div class="min-w-0 flex-1">
+              <h1 class="text-3xl lg:text-5xl xl:text-6xl font-bold leading-7 sm:truncate sm:tracking-tight text-secondary">
                 {{user.first_name}}'s Courses
               </h1>
-              <div class="mx-auto sm:w-2/3">
-                <span
-                  class="block pt-5 font-body text-base text-neutrals-g03 sm:text-xl"
-                  >Currently Enrolled Courses :</span
-                >
+              <div class="flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+                <div class="flex items-center pt-5 font-body text-base text-neutrals-g03 md:text-2xl">
+                Currently Enrolled Courses :                
+                </div>
               </div>
+            </div>
           </div>
-              <div class="mt-14">
-                {% if object_list|length > 0 %}
-                <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {% for course in object_list %}
-              {% with subject=course.subject %}
-                    <a
-                      href="{% url "student_course_detail" course.id %}"
-                      class="group rounded-lg border border-neutrals-l02"
+            <div class="mt-8">
+              {% if object_list|length > 0 %}
+              <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {% for course in object_list %}
+            {% with subject=course.subject %}
+                  <a
+                    href="{% url "student_course_detail" course.id %}"
+                    class="group rounded-lg border border-neutrals-l02"
+                  >
+                    <span
+                      class="shadow-xs block transform rounded-lg transition duration-700 ease-in-out hover:scale-105 hover:shadow-md"
                     >
                       <span
-                        class="shadow-xs block transform rounded-lg transition duration-700 ease-in-out hover:scale-105 hover:shadow-md"
+                        class="block h-56 rounded-t-lg bg-cover bg-center bg-no-repeat sm:h-72 md:h-56 lg:h-48 xl:h-56"
+                        style="background-image: url({% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %});"
+                      ></span>
+                      <span
+                        class="block border-b border-neutrals-g01 bg-white px-5 py-8 lg:px-3 xl:px-5"
                       >
-                        <span
-                          class="block h-56 rounded-t-lg bg-cover bg-center bg-no-repeat sm:h-72 md:h-56 lg:h-48 xl:h-56"
-                          style="background-image: url({% if course.image %}{{ course.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %});"
-                        ></span>
-                        <span
-                          class="block border-b border-neutrals-g01 bg-white px-5 py-8 lg:px-3 xl:px-5"
+                        <h4
+                          class="block pb-2 font-body text-lg font-semibold text-neutrals-g03 group-hover:text-secondary lg:pb-3 xl:text-xl"
                         >
-                          <h4
-                            class="block pb-2 font-body text-lg font-semibold text-neutrals-g03 group-hover:text-secondary lg:pb-3 xl:text-xl"
-                          >
-                          {{ course.title }}
-                          </h4>
+                        {{ course.title }}
+                        </h4>
+                        <span class="flex">
                           <span class="flex">
-                            <span class="flex">
-                              <span class="font-body text-sm font-medium text-neutrals-g02"
-                                >Instructor -</span
-                              >
-                              <span
-                                class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
-                                >{{ course.owner.get_full_name }}</span
-                              >
-                            </span>
-                            <span class="flex pl-5">
-                              <span class="font-body text-sm font-medium text-neutrals-g02"
-                                >Subject -</span
-                              >
-                              <span
-                                class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
-                                >{{ subject }}</span
-                              >
-                            </span>
-                          </span>
-                        </span>
-                        <span
-                          class="flex items-center justify-between rounded-b-lg bg-white px-5 py-4 lg:px-3 xl:px-5"
-                        >
-                          <span class="flex items-center">
-                            <span class="block font-body text-sm font-medium text-neutrals-g02"
-                              >{{ course.total_modules }} Chapters</span
+                            <span class="font-body text-sm font-medium text-neutrals-g02"
+                              >Instructor -</span
+                            >
+                            <span
+                              class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
+                              >{{ course.owner.get_full_name }}</span
                             >
                           </span>
-                          <h2
-                            class="font-body text-3xl font-semibold tracking-wider text-secondary"
-                          >
-                            ${{course.price}}
-                          </h2>
+                          <span class="flex pl-5">
+                            <span class="font-body text-sm font-medium text-neutrals-g02"
+                              >Subject -</span
+                            >
+                            <span
+                              class="block pl-1 font-body text-sm font-medium text-neutrals-g03"
+                              >{{ subject }}</span
+                            >
+                          </span>
                         </span>
                       </span>
-                    </a>
-              {% endwith %}
-              {% endfor %}
-                </div>
-                {% else %}
-                <p class="text-center">
-                  You are not enrolled in any courses yet.
-                  <a href="{% url "course_list" %}" class="text-secondary underline">Browse courses</a>
-                  to enroll on a course.
-                </p>
-                {% endif %}
+                      <span
+                        class="flex items-center justify-between rounded-b-lg bg-white px-5 py-4 lg:px-3 xl:px-5"
+                      >
+                        <span class="flex items-center">
+                          <span class="block font-body text-sm font-medium text-neutrals-g02"
+                            >{{ course.total_modules }} Chapters</span
+                          >
+                        </span>
+                        <h2
+                          class="font-body text-3xl font-semibold tracking-wider text-secondary"
+                        >
+                          ${{course.price}}
+                        </h2>
+                      </span>
+                    </span>
+                  </a>
+            {% endwith %}
+            {% endfor %}
               </div>
+              {% else %}
+              <p class="text-center">
+                You are not enrolled in any courses yet.
+                <a href="{% url "course_list" %}" class="text-secondary underline">Browse courses</a>
+                to enroll on a course.
+              </p>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>

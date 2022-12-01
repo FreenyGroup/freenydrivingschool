@@ -3,7 +3,7 @@
 {% block title %}Logged out{% endblock %}
 
 {% block content %}
-<div>
+<div class="h-screen">
   <div class="bg-neutrals-l00">
     <div
       class="h-full w-full bg-cover bg-bottom bg-no-repeat"
@@ -17,10 +17,12 @@
           Logged Out!
         </h1>
         <span
-          class="block pt-6 font-body text-2xl font-light tracking-wide text-white sm:pt-8"
+          class="block pt-6 text-2xl font-base tracking-wide text-white sm:pt-8"
         >
         You have been successfully logged out!
-        You can <a class="text-secondary" href="{% url "login" %}">( log-in again )</a>.
+        You can 
+        <br>
+        <a class="text-secondary font-extrabold" href="{% url "login" %}">( log-in again )</a>.
         </span>
       </div>
     </div>

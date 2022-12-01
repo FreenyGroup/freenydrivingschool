@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Subject, Course, Module, Language
+from .models import Subject, Course, Module, Language, Status
 from django.db import models
 from django.forms import CheckboxSelectMultiple
 
@@ -10,6 +10,11 @@ class LanguageAdmin(admin.ModelAdmin):
 
 @admin.register(Subject)
 class SubjectAdmin(admin.ModelAdmin):
+    list_display = ['title', 'slug']
+    prepopulated_fields = {'slug': ('title',)}
+
+@admin.register(Status)
+class StatusAdmin(admin.ModelAdmin):
     list_display = ['title', 'slug']
     prepopulated_fields = {'slug': ('title',)}
 

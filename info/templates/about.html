@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block title %}
+  Contact Us
+{% endblock %}
+{% block content %}
+<section class="bg-white">
+  <div class="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+      <div class="font-light text-gray-500 sm:text-lg">
+          <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-700">About Freeny Driving School</h2>
+          <h4 class="mb-4 text-2xl tracking-tight font-extrabold text-secondary">We are Certified &
+            Professional</h4>
+          <p class="mb-4"> <strong class="font-bold">We provide quality training at affordable prices. It's VALUE for your money! </strong>It has always been our school policy to provide the highest standard of informative Driver Training to our students.
+            Our school is committed in molding better, safer and law abiding drivers.</p>
+          <p> We give emphasis on the importance of driver safety in order to make our roads and highways safer for all road users.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-4 mt-8">
+          <img class="w-full rounded-lg" src="{% static 'img/about1.png' %}" alt="office content 1">
+          <img class="mt-4 w-full lg:mt-10 rounded-lg" src="{% static 'img/about2.png' %}" alt="office content 2">
+      </div>
+  </div>
+</section>
+<section class="bg-gray-50">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto space-y-12 lg:space-y-20 lg:py-24 lg:px-6">
+    <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+      <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="{% static 'img/about4.png' %}" alt="feature image 2">
+      <div class="text-gray-500 sm:text-lg ">
+          <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-700">Online Drivers Ed</h2>
+          <p class="mb-8 font-light lg:text-xl">As the industry leader in drivers education and online driving school, it’s our mission and passion to bring you the most effective drivers ed online courses on the market. You’ll find a driving ed interactive curriculum designed to teach you rules of the road that are relevant for your state. Everything you need to pass your permit exam and get on the road with confidence is right here thanks to our online driving lessons.</p>
+          <ul role="list" class="pt-8 space-y-5 border-t border-gray-200 my-7">
+              <li class="flex space-x-3">
+                  <svg class="flex-shrink-0 w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span class="text-base font-medium leading-tight text-gray-700 ">Log in/out of the online drivers ed course anytime, from anywhere</span>
+              </li>
+              <li class="flex space-x-3">
+                  <svg class="flex-shrink-0 w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span class="text-base font-medium leading-tight text-gray-700 ">Learn from videos, animations, and case studies</span>
+              </li>
+              <li class="flex space-x-3">
+                  <svg class="flex-shrink-0 w-5 h-5 text-secondary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span class="text-base font-medium leading-tight text-gray-700 ">Study defensive driving techniques</span>
+              </li>
+              <li class="flex space-x-3">
+                  <svg class="flex-shrink-0 w-5 h-5 text-secondary " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span class="text-base font-medium leading-tight text-gray-700 ">Earn an insurance discount</span>
+              </li>
+              <li class="flex space-x-3">
+                  <svg class="flex-shrink-0 w-5 h-5 text-secondary " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                  <span class="text-base font-medium leading-tight text-gray-700 ">Get free customer support 7 days a week</span>
+              </li>
+          </ul>
+      </div>
+    </div>
+    <section class="mt-8">
+      <div class="max-w-screen-xl px-4 pb-8 mx-auto lg:pb-24 lg:px-6 ">
+          <h2 class="mb-6 text-3xl font-extrabold tracking-tight text-center text-gray-700 lg:mb-8 lg:text-3xl ">Frequently asked questions</h2>
+          <div class="max-w-screen-md mx-auto">
+  
+  <div id="accordion-color" data-accordion="collapse" data-active-classes="bg-secondary text-white">
+  <h2 id="accordion-color-heading-1">
+    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left hover:text-white text-gray-500 border border-b-0 border-gray-200 rounded-t-xl hover:bg-primary" data-accordion-target="#accordion-color-body-1" aria-expanded="true" aria-controls="accordion-color-body-1">
+      <span>Can I take Driver’s Ed before I have a Learner’s Permit?</span>
+      <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </button>
+  </h2>
+  <div id="accordion-color-body-1" class="hidden" aria-labelledby="accordion-color-heading-1">
+    <div class="p-5 font-light border border-b-0 border-gray-200">
+      <p class="mb-2 text-gray-500">Yes.  You can begin taking your Driver’s Ed course before you receive your Learner’s Permit. </p>
+      <p class="text-gray-500">Completing Driver’s Ed first will actually help you with the Learner’s Permit test at the DMV.</p>
+      <p class="mb-2 text-gray-500">Additionally, we offer a Learner’s Permit Prep class that will help you prepare as well.</p>
+
+    </div>
+  </div>
+  <h2 id="accordion-color-heading-2">
+    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left hover:text-white text-gray-500 border border-b-0 border-gray-200 hover:bg-primary" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
+      <span>Do you offer coupons or have sales for your services?</span>
+      <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </button>
+  </h2>
+  <div id="accordion-color-body-2" class="hidden" aria-labelledby="accordion-color-heading-2">
+    <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700">
+      <p class="mb-2 text-gray-500 dark:text-gray-400">We sure do.  Visit our Offers page to view current and limited time only offers. </p>
+      <p class="text-gray-500 dark:text-gray-400">Additionally, we advertise across a number of different mediums, and you can find additional discounts and offerings on social media, in print such as high school newsletters and yearbooks, as well as public newspapers.</p>
+    </div>
+  </div>
+  <h2 id="accordion-color-heading-3">
+    <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left hover:text-white text-gray-500 border border-gray-200 hover:bg-primary" data-accordion-target="#accordion-color-body-3" aria-expanded="false" aria-controls="accordion-color-body-3">
+      <span>Do you provide lessons for persons with disabilities or special needs?</span>
+      <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+    </button>
+  </h2>
+  <div id="accordion-color-body-3" class="hidden" aria-labelledby="accordion-color-heading-3">
+    <div class="p-5 font-light border border-t-0 border-gray-200 dark:border-gray-700">
+      <p class="mb-2 text-gray-500 dark:text-gray-400">While we aim to deliver exceptional service to all students, there are times when we are limited on the scope of what we can provide.  </p>
+      <p class="mb-2 text-gray-500 dark:text-gray-400">We encourage you to contact us directly to discuss further.</p>
+    </div>
+  </div>
+  </div>
+          </div>               
+      </div>
+    </section>
+    <div class="items-center gap-8 lg:grid lg:grid-cols-2 xl:gap-16">
+        <div class="text-gray-500 sm:text-lg ">
+            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-700 ">Student
+              Pick Up for Class</h2>
+            <p class="mb-8 font-light lg:text-xl">We pick up students from various areas in the DMV which includes Alexandria, Arlington, Fairfax, Falls Church, Washington DC, and most of Southern Maryland.</p>
+            <p class="mb-8 font-light lg:text-xl">There is one more benefit of learning driving from professional driving school that is, the driver will feel more confident after learning driving as he/she has learned it from the professional and confidence plays a vital role in driving any vehicle.</p>
+            <p class="mb-8 font-light lg:text-xl">Upon completion of the driving course the students make themselves and their families safer on the roads, by using the driving principles learned in Freeny Driving School.</p>
+
+        </div>
+        <img class="hidden w-full mb-4 rounded-lg lg:mb-0 lg:flex" src="{% static 'img/about3.png' %}" alt="dashboard feature image">
+    </div>
+  </div>
+</section>
+<section class="bg-gray-50 ">
+  <div class="max-w-screen-xl px-4 py-8 mx-auto lg:py-16 lg:px-6">
+      <div class="max-w-screen-sm mx-auto text-center">
+          <h2 class="mb-4 text-3xl font-extrabold leading-tight tracking-tight text-gray-700 ">Ready to get started?</h2>
+          <p class="mb-6 font-light text-gray-500  md:text-lg">View our currently available courses.</p>
+          <a href="{% url "course_list" %}" type="button" class="text-md font-bold text-white bg-gradient-to-r from-[#B25C43] via-[#9F4241] to-[#8B283E] hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg px-5 py-2.5 text-center">All Courses</a>
+      </div>
+  </div>
+</section>
+<section class="bg-white ">
+  <div class="items-center max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:grid-cols-4 lg:gap-16 xl:gap-24 lg:py-24 lg:px-6">
+      <div class="col-span-2 mb-8">
+          <p class="text-lg font-medium text-secondary ">Freeny Driving School</p>
+          <h2 class="mt-3 mb-4 text-3xl font-extrabold tracking-tight text-gray-700 md:text-3xl ">DMV Approved and Trusted Driving School</h2>
+          <p class="font-light text-gray-500 sm:text-xl ">Freeny Driving School is one of the best driver training schools in the DMV area. We offer driving courses for students from all age groups that include students with zero driving knowledge, students who get nervous while driving, students who failed the DMV road test 3 times and drivers that hold foreign driver's license and want to take the DMV road test.</p>
+          <div class="pt-6 mt-6 space-y-4 border-t border-gray-200 ">
+          </div>
+      </div>
+      <div class="col-span-2 space-y-8 md:grid md:grid-cols-2 md:gap-12 md:space-y-0">
+          <div>
+              <svg class="w-10 h-10 mb-2 text-secondary md:w-12 md:h-12 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M2 5a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1a1 1 0 11-2 0 1 1 0 012 0zM2 13a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2zm14 1a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"></path></svg>
+              <h3 class="mb-2 text-2xl font-bold text-gray-700">OUR MISSION</h3>
+              <p class="font-light text-gray-500 ">Our Mission is to make you skilled and perfect driver that's why we offer Professional driving lessons which are the building block to safe and confident driving.</p>
+          </div>
+          <div>
+              <svg class="w-10 h-10 mb-2 text-secondary md:w-12 md:h-12 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
+              <h3 class="mb-2 text-2xl font-bold text-gray-700">BEST SOLUTION</h3>
+              <p class="font-light text-gray-500 ">If you want to learn safe and reliable driving, our school will be the right option as we have the best instructors to teach you.</p>
+          </div>
+          <div>
+              <svg class="w-10 h-10 mb-2 text-secondary md:w-12 md:h-12 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"></path></svg>
+              <h3 class="mb-2 text-2xl font-bold text-gray-700">HANDS ON ROAD</h3>
+              <p class="font-light text-gray-500 ">No one can learn the best driving under continuous interference. We strictly follow one on one policy. We have experienced the best results.</p>
+          </div>
+          <div>
+              <svg class="w-10 h-10 mb-2 text-secondary md:w-12 md:h-12 " fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
+              <h3 class="mb-2 text-2xl font-bold text-gray-700">FRIENDLY INSTRUCTORS</h3>
+              <p class="font-light text-gray-500 ">We have friendly, experienced & reliable instructors in our Driving School. They will help you to learn the best driving skills in a complete friendly environment.</p>
+          </div>
+      </div>
+  </div>
+</section>
+{% endblock %}

@@ -17,9 +17,7 @@ from django.core.cache import cache
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from students.forms import CourseEnrollForm
 from .forms import AddCourseForm, ModuleFormSet, SearchFormA
-from .models import Course, Language
-from .models import Module, Content
-from .models import Subject
+from .models import Course, Language, Subject, Status, Module, Content
 from cart.forms import CartAddCourseForm
 from django.contrib.postgres.search import SearchVector, \
                                            SearchQuery, SearchRank
@@ -28,10 +26,10 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 def error_404_view(request):
-   
-    # we add the path to the the 404.html file
-    # here. The name of our HTML file is 404.html
-    return render(request, 'courses/404/404.html')
+    return render(request, '404/404.html')
+
+def error_500_view(request):
+    return render(request, '404/500.html')
 
 class OwnerMixin:
     def get_queryset(self):
@@ -64,16 +62,6 @@ class ListAndCreateView(OwnerMixin,LoginRequiredMixin,PermissionRequiredMixin, C
     success_url = reverse_lazy('manage_course_list')
     form_class = AddCourseForm    
     error_message = 'Error saving the Doc, check fields below.'
-
-    #def get_form(self, form_class=None):
-        #form = self.get_form_class()(**self.get_form_kwargs())
-        #form.fields['overview'].widget.attrs.update({'rows': 4})
-        #for field in form.fields:
-            #form.fields[field].widget.attrs.update({'class':'bg-gray-50 border border-secondary text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5'
-        #})
-        #form.fields['courselength'].widget = forms.DurationField(widget=TimeDurationWidget())
-        #return form
-
     def form_valid(self, form):
         form.instance.owner = self.request.user
         return super().form_valid(form)
@@ -190,7 +178,6 @@ class ContentCreateUpdateView(TemplateResponseMixin, View):
             obj.owner = request.user
             obj.save()
             if not id:
-                # new content
                 Content.objects.create(module=self.module,
                                        item=obj)
             return redirect('module_content_list', self.module.id)
@@ -243,12 +230,23 @@ class ContentOrderView(CsrfExemptMixin,
 class CourseListView(TemplateResponseMixin, View):
     model = Course
     template_name = 'courses/course/list.html'
-    def get(self, request, subject=None):
+    def get(self, request, subject=None, status=None):
         subjects = cache.get('all_subjects')
+        statuses = cache.get('all_statuses')
+        if not statuses: 
+            statuses = Status.objects.filter(coursesinstatus__available=True).annotate(total_courses=Count('coursesinstatus'))
+            cache.set('all_statuses', statuses)
         if not subjects: 
-            subjects = Subject.objects.filter(courses__available=True).annotate(total_courses=Count('courses'))
+            subjects = Subject.objects.filter(coursesinsubject__available=True).annotate(total_courses=Count('coursesinsubject'))
             cache.set('all_subjects', subjects)
         all_courses = Course.objects.filter(available=True).order_by('updated').annotate(total_modules=Count('modules'))
+        if status:
+            status = get_object_or_404(Status, slug=status)
+            key = f'status_{status.id}_courses'
+            courses = cache.get(key)
+            if not courses:
+                courses = all_courses.filter(status=status)
+                cache.set(key, courses)
         if subject:
             subject = get_object_or_404(Subject, slug=subject)
             key = f'subject_{subject.id}_courses'
@@ -263,32 +261,16 @@ class CourseListView(TemplateResponseMixin, View):
                 cache.set('all_courses', courses)
         return self.render_to_response({'subjects': subjects,
                                         'subject': subject,
+                                        'statuses': statuses,
+                                        'status': status,
                                         'courses': courses})
 
 class FeaturedCourseListView(TemplateResponseMixin, View):
     model = Course
     template_name = 'courses/course/featured.html'
-    def get(self, request, featuredsubject=None):
-        featuredsubjects = cache.get('featured_subjects')
-        if not featuredsubjects: 
-            featuredsubjects = Subject.objects.filter(courses__available=True).order_by('courses__-updated')[:4].annotate(total_courses=Count('courses'))
-            cache.set('featured_subjects', featuredsubjects)
-        featured_courses = Course.objects.filter(available=True).order_by('-updated')[:5].annotate(total_modules=Count('modules'))
-        if featuredsubject:
-            featuredsubject = get_object_or_404(Subject, slug=featuredsubject)
-            featuredkey = f'subject_{featuredsubject.id}_courses'
-            featuredcourses = cache.get(featuredkey)
-            if not featuredcourses:
-                featuredcourses = featured_courses.filter(subject=featuredsubject)
-                cache.set(featuredkey, featuredcourses)
-        else:
-            featuredcourses = cache.get('featured_courses')
-            if not featuredcourses:
-                featuredcourses = featured_courses
-                cache.set('featured_courses', featuredcourses)
-        return self.render_to_response({'subjects': featuredsubjects,
-                                        'subject': featuredsubject,
-                                        'courses': featuredcourses,})
+    def get(self, request):
+        featuredcourses = Course.objects.filter(available=True).order_by('-updated')[:5].annotate(total_modules=Count('modules'))
+        return self.render_to_response({'courses': featuredcourses,})
 
 
 class CourseDetailView(DetailView):

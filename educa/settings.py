@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+from datetime import timedelta
 from pathlib import Path
 import os
 import django_on_heroku
@@ -20,18 +21,9 @@ from django.urls import reverse_lazy
 load_dotenv(find_dotenv())
 DEBUG=False
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-
-
 SITE_ID = 1
-# Application definition
 
 INSTALLED_APPS = [
     'user',
@@ -64,9 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.common.CommonMiddleware',
-    # 'django.middleware.cache.FetchFromCacheMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -94,23 +84,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'educa.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-
-#DATABASES = {}
-#DATABASES['default'] = dj_database_url.config(conn_max_age=600)
-
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -128,8 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -139,15 +116,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-
-
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -166,36 +134,8 @@ REST_FRAMEWORK = {
 }
 
 if DEBUG == True:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['192.168.0.101', 'localhost', '127.0.0.1', '[::1]']
     SECRET_KEY = config('SECRET_KEY')
-    DEBUG_PROPAGATE_EXCEPTIONS = True
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            'verbose': {
-                'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
-                'datefmt' : "%d/%b/%Y %H:%M:%S"
-            },
-            'simple': {
-                'format': '%(levelname)s %(message)s'
-            },
-        },
-        'handlers': {
-            'console': {
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-            },
-        },
-        'loggers': {
-            'educa': {
-                'handlers': ['console'],
-                'level': 'DEBUG',
-            },
-        }
-    }
-
-    django_on_heroku.settings(locals())
     STRIPE_PUBLISHABLE_KEY = config('STRIPE_PUBLISHABLE_KEY')
     STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
     STRIPE_WEBHOOK_SECRET = config('STRIPE_WEBHOOK_SECRET')
@@ -211,7 +151,7 @@ if DEBUG == True:
     SESSION_COOKIE_SECURE = False
     SECURE_SSL_REDIRECT = False
     CACHE_MIDDLEWARE_ALIAS = 'default'
-    CACHE_MIDDLEWARE_SECONDS = 60 * 15  # 15 minutes
+    CACHE_MIDDLEWARE_SECONDS = 60 * 15
     CACHE_MIDDLEWARE_KEY_PREFIX = 'educa'
     STATIC_URL = 'static/'
     STATIC_ROOT = BASE_DIR / 'static'
@@ -290,9 +230,7 @@ if DEBUG == False:
     AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
     AWS_DEFAULT_ACL = 'public-read'
-    #AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     AWS_QUERYSTRING_AUTH = False
-    #AWS_S3_OBJECT_PARAMETERS = {'Access-Control-Allow-Origin': '*'}
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
@@ -309,9 +247,6 @@ def get_cache():
     return {
       'default': {
         'BACKEND': 'django_bmemcached.memcached.BMemcached',
-        # TIMEOUT is not the connection timeout! It's the default expiration
-        # timeout that should be applied to keys! Setting it to `None`
-        # disables expiration.
         'TIMEOUT': None,
         'LOCATION': servers,
         'OPTIONS': {
@@ -329,18 +264,23 @@ def get_cache():
 
 CACHES = get_cache()
 
-broker_pool_limit = 1 # Will decrease connection usage
-broker_heartbeat = None # We're using TCP keep-alive instead
-broker_connection_timeout = 30 # May require a long timeout due to Linux DNS timeouts etc
-result_backend = None # AMQP is not recommended as result backend as it creates thousands of queues
-event_queue_expires = 60 # Will delete all celeryev. queues without consumers after 1 minute.
-worker_prefetch_multiplier = 1 # Disable prefetching, it's causes problems and doesn't help performance
-worker_concurrency = 50 # If you tasks are CPU bound, then limit to the number of cores, otherwise increase substainally
+broker_pool_limit = 1 
+broker_heartbeat = None 
+broker_connection_timeout = 30  
+result_backend = None 
+event_queue_expires = 60 
+worker_prefetch_multiplier = 1 
+worker_concurrency = 50 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
 
 CRISPY_TEMPLATE_PACK = "tailwind"
 
-handler404 = 'courses.views.error_404_view'
-
 AUTH_USER_MODEL = 'user.User'
+
+CONTACT_EMAIL='contact@freenydrivingschool.com'
+
+ADMIN_EMAIL=['contact@freenydrivingschool.com']
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+

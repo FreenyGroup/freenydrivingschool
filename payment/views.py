@@ -1,23 +1,15 @@
 from decimal import Decimal
-import imp
-from django.http import HttpResponseNotFound, JsonResponse
 import stripe
 from django.conf import settings
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from orders.models import Order
-from students.forms import CourseEnrollForm
-from students.views import StudentEnrollCourseView
-from orders.tasks import order_created
 from cart.cart import Cart
 from orders.forms import OrderCreateForm
 from orders.models import OrderItem
 from courses.models import Course
-from django.views.decorators.csrf import csrf_exempt
-import json
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-# create the Stripe instance
 stripe.api_key = settings.STRIPE_SECRET_KEY
 stripe.api_version = settings.STRIPE_API_VERSION
 
@@ -68,21 +60,11 @@ def payment_process(request):
                 }]
             session = stripe.checkout.Session.create(**session_data)
             return redirect(session.url, code=303)
-        else:
-            print("ERROR : Form is invalid")
-            print(form.errors)
     else:
         form = OrderCreateForm(instance=request.user,initial={'country': 'United States'})
     return render(request, 'payment/process.html', {'form': form,'google_maps_api_key': settings.GOOGLE_MAPS_API_KEY,})
 
 def payment_completed(request, *args, **kwargs):
-        #session = stripe.checkout.Session.retrieve('session_id')
-        #customer = stripe.Customer.retrieve(session.customer)
-        #session_id = request.GET.get('session_id')
-        #if session_id is None:
-            #return HttpResponseNotFound()  
-        #session = stripe.checkout.Session.retrieve(session_id)
-
         cart = Cart(request)
         course_ids = cart.cart.keys()
         courses = Course.objects.filter(id__in=course_ids)

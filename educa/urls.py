@@ -21,6 +21,9 @@ from django.contrib.auth import views as auth_views
 from courses.views import CourseListView, FeaturedCourseListView
 from django.contrib.sitemaps.views import sitemap
 from courses.sitemaps import CourseSitemap
+from django.conf.urls import handler500, handler404
+
+
 sitemaps = {
     'courses': CourseSitemap,
 }
@@ -59,6 +62,10 @@ urlpatterns = [
 urlpatterns += [
     path('payment/webhook/', webhooks.stripe_webhook, name='stripe-webhook'),
 ]
+
+admin.site.site_header = "Freeny Driving School Admin Dashboard"
+admin.site.site_title = "Freeny Driving School"
+admin.site.index_title = "Welcome To Freeny Driving School's Admin Site"
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

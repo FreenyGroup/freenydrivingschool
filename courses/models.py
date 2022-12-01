@@ -5,10 +5,18 @@ from django.contrib.contenttypes.fields import GenericForeignKey
 from django.template.loader import render_to_string
 from .fields import OrderField
 from django.urls import reverse
-from datetime import datetime, timedelta
-from django.core import validators
 
 class Subject(models.Model):
+    title = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200, unique=True)
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+
+class Status(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
 
@@ -29,29 +37,25 @@ class Language(models.Model):
         return self.title
 
 class Course(models.Model):
-    def upload_photo_to(self, filename):
-            return f'courseimages/{self.title}/{filename}'
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
                               related_name='courses_created',
                               on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject,
-                                related_name='courses',
+                                related_name='coursesinsubject',
+                                on_delete=models.CASCADE)
+    status = models.ForeignKey(Status,
+                                related_name='coursesinstatus',
                                 on_delete=models.CASCADE)
     languages = models.ManyToManyField(Language,
-                                related_name='course_languages',)
+                                related_name='coursesinlanguage',)
     courselength = models.DurationField(blank=True,null=True)
     title = models.CharField(
         max_length=200,)
     slug = models.SlugField(max_length=200, unique=True)
     overview = models.TextField()
-    price = models.FloatField(
-        verbose_name='Price',
-        validators=[
-            validators.MinValueValidator(5),
-            validators.MaxValueValidator(1000)
-        ]
-    )
-    image = models.ImageField(upload_to=upload_photo_to, blank=True)
+    price = models.DecimalField(max_digits=10,
+                                decimal_places=2)
+    image = models.ImageField(upload_to='course_main_images', blank=True)
     
     available = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
@@ -130,15 +134,15 @@ class Text(ItemBase):
 
 
 class File(ItemBase):
-    file = models.FileField(upload_to='files')
+    file = models.FileField(upload_to='coursefiles')
 
 
 class Image(ItemBase):
-    file = models.FileField(upload_to='contentimages')
+    file = models.FileField(upload_to='coursecontentimages')
 
 class TextWithImage(ItemBase):
     content = models.TextField()
-    file = models.FileField(upload_to='contentimages')
+    file = models.FileField(upload_to='coursecontentimages')
 
 class Video(ItemBase):
     url = models.URLField()

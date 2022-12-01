@@ -3,7 +3,6 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from orders.models import Order
-from orders.tasks import order_created
 from .tasks import payment_completed
 
 
@@ -19,10 +18,8 @@ def stripe_webhook(request):
                     sig_header,
                     settings.STRIPE_WEBHOOK_SECRET)
     except ValueError as e:
-        # Invalid payload
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        # Invalid signature
         return HttpResponse(status=400)
 
     if event.type == 'checkout.session.completed':
@@ -32,13 +29,9 @@ def stripe_webhook(request):
                 order = Order.objects.get(id=session.client_reference_id)
             except Order.DoesNotExist:
                 return HttpResponse(status=404)
-            # mark order as paid
             order.paid = True
-            # store Stripe payment ID
             order.stripe_id = session.payment_intent
             order.save()
-            # launch asynchronous task
-            order_created.delay(order.id)
             payment_completed.delay(order.id)
 
     return HttpResponse(status=200)

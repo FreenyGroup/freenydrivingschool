@@ -12,29 +12,30 @@
 <div>
 <div class="bg-neutrals-l00">
   <div class="container pt-10 pb-40 sm:pt-16 sm:pb-48 md:pb-36 xl:pb-40">
-    <div class="text-center">
-      <h1
-        class="font-body text-4xl font-medium text-secondary lg:text-5xl xl:text-6xl"
-      >
-      {% if subject %}
-        Courses in {{ subject.title }}
-      {% else %}
-        All courses
-      {% endif %}
-      </h1>
-      <div class="mx-auto sm:w-2/3">
-        <span
-          class="block pt-5 font-body text-base text-neutrals-g03 sm:text-xl"
-          >We have a big calatogue where you can find different courses for different fields, you can learn a new skill in just 1 hour. Awesome, right?</span
-        >
+    <div class="lg:flex lg:items-center lg:justify-between">
+      <div class="min-w-0 flex-1">
+        <h1 class="text-2xl lg:text-5xl xl:text-6xl font-bold leading-7 sm:truncate sm:tracking-tight text-secondary">
+          {% if subject %}
+          {{ subject.title }} Courses 
+          {% elif status %}
+          {{ status.title }} Courses
+          {% else %}
+            All courses
+          {% endif %}
+        </h1>
+        <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+          <div class="mt-2 flex items-center pt-5 font-body text-base text-neutrals-g03 sm:text-xl">
+            With a wide variety of driving improvement and training courses, you can get started Freeny Driving School Today! Look through our currently available courses and sign up now.
+          </div>
+        </div>
       </div>
     </div>
     <div class="flex flex-col justify-between pt-10 md:pt-16 md:flex-row">
-      <div class="grid grid-cols-1 gap-2 lg:grid-cols-4 xl:w-3/4">
+      <div class="grid gap-1 grid-cols-1 md:grid-cols-2">
       <div
         class="rounded-lg mt-2 flex w-full items-center justify-between border border-secondary bg-white font-body text-base text-neutrals-g03 focus:border-secondary focus:outline-none focus:ring-0"
       >
-        <button id="dropdownDefault" data-dropdown-toggle="dropdown2" class="text-secondary font-medium rounded-lg text-sm px-4 py-3 sm:py-4 md:px-6 text-center items-center flex w-full items-center justify-between" type="button">
+        <button id="dropdownDefault" data-dropdown-toggle="subjectsdropdown" class="text-secondary font-medium rounded-lg text-sm px-4 py-3 sm:py-4 md:px-6 text-center items-center flex w-full items-center justify-between" type="button">
           {% if subject %}
             {{subject}}
           {% else %}
@@ -45,7 +46,7 @@
             </path>
           </svg>
         </button>
-        <div id="dropdown2" class="rounded-lg hidden z-10 w-56 bg-white divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 535px, 0px);">
+        <div id="subjectsdropdown" class="rounded-lg hidden z-10 w-56 bg-white divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 535px, 0px);">
           <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
             <li>
               <a href="{% url "course_list" %}" class="block py-2 px-4 hover:bg-gray-100">
@@ -62,11 +63,44 @@
           </li>
           {% endfor %}
           </ul>
+        </div>
       </div>
+      <div
+        class="rounded-lg mt-2 flex w-full items-center justify-between border border-secondary bg-white font-body text-base text-neutrals-g03 focus:border-secondary focus:outline-none focus:ring-0"
+      >
+        <button id="dropdownDefault" data-dropdown-toggle="statusesdropdown" class="text-secondary font-medium rounded-lg text-sm px-4 py-3 sm:py-4 md:px-6 text-center items-center flex w-full items-center justify-between" type="button">
+          {% if status %}
+            {{status}}
+          {% else %}
+            Statuses
+          {% endif %}
+          <svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+            </path>
+          </svg>
+        </button>
+        <div id="statusesdropdown" class="rounded-lg hidden z-10 w-56 bg-white divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 535px, 0px);">
+          <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+            <li>
+              <a href="{% url "course_list" %}" class="block py-2 px-4 hover:bg-gray-100">
+                All Courses
+                <br>
+              </a>
+            </li>
+          {% for status in statuses %}
+          <li>
+            <a href="{% url "course_list_status" status.slug %}" class="block py-2 px-4 hover:bg-gray-100">
+              {{ status.title }} | {{ status.total_courses }} course{{ status.total_courses|pluralize }}
+              <br>
+            </a>
+          </li>
+          {% endfor %}
+          </ul>
+        </div>
       </div>
       </div>
       <div
-        class="rounded-lg mt-2 flex w-full items-center justify-between border border-secondary bg-white font-body text-base text-neutrals-g03 focus:border-secondary focus:outline-none focus:ring-0 md:w-1/3 lg:mt-0 lg:ml-2 lg:w-1/4"
+        class="rounded-lg mt-3 md:mt-2 flex w-full items-center justify-between border border-secondary bg-white font-body text-base text-neutrals-g03 focus:border-secondary focus:outline-none focus:ring-0 md:w-1/3 lg:mt-0 lg:ml-2 lg:w-1/4"
       >
         <button id="dropdownDefault" data-dropdown-toggle="dropdown" class="text-secondary font-medium rounded-lg text-sm px-4 py-3 sm:py-4 md:px-6 text-center inline-flex items-center flex w-full items-center justify-between" type="button">
           Sort By: {% if 'highest' in request.get_full_path %}High To Low {% else %} Low To High{% endif %}
@@ -75,7 +109,6 @@
             </path>
           </svg>
         </button>
-        <!-- Dropdown menu -->
         <div id="dropdown" class="rounded-lg hidden z-10 w-56 bg-white divide-y divide-gray-100 shadow dark:bg-gray-700" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="bottom" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 535px, 0px);">
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
               <li>

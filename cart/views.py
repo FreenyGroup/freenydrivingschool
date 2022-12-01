@@ -1,16 +1,9 @@
-from pickle import GET
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from courses.models import Course
 from .cart import Cart
 from .forms import CartAddCourseForm
-from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
-from django.views.generic.detail import DetailView
-from django.views.generic.base import TemplateResponseMixin, View
 from coupons.forms import CouponApplyForm
-
 
 @require_POST
 def cart_add(request, course_id):

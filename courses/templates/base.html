@@ -57,16 +57,13 @@
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
     />
 
-    <!--Magic Help for Alpine Js V3-->
     <script
       src="https://unpkg.com/@alpine-collective/toolkit@1.0.0/dist/cdn.min.js"
       defer
     ></script>
 
-    <!--Alpine Js V3-->
     <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 
-    <!-- Splide's Styles  -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@splidejs/splide@3.6.12/dist/css/splide.min.css"
@@ -111,6 +108,13 @@
                     href="{% url "contact" %}"
                       class="font-body text-base font-medium uppercase tracking-wide text-white transition duration-300 hover:text-primary"
                       >Contact</a
+                    >
+                  </li>
+                  <li class="border-white py-1 ml-8 hover:border-b">
+                    <a
+                    href="{% url "about" %}"
+                      class="font-body text-base font-medium uppercase tracking-wide text-white transition duration-300 hover:text-primary"
+                      >About Us</a
                     >
                   </li>
                   <li class="border-white py-1 ml-8 hover:border-b">
@@ -160,7 +164,7 @@
                       class="bx bx-search-alt text-white text-xl px-2"
                     ></i>
                   </a>
-      
+                  {% if request.user.is_authenticated %}
                   <div
                       class="hover:shadow-xs group relative ml-5 flex items-center rounded-full bg-primary px-2 py-1 shadow transition duration-300 hover:bg-white"
                     >
@@ -204,7 +208,8 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                  </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -227,6 +232,12 @@
             href="{% url "contact" %}"
               class="font-body text-base font-medium uppercase tracking-wide text-neutrals-g03"
               >Contact</a>
+          </li>
+          <li class="mb-3 border-b border-neutrals-g02 py-1 pb-3">
+            <a
+            href="{% url "about" %}"
+              class="font-body text-base font-medium uppercase tracking-wide text-neutrals-g03"
+              >About Us</a>
           </li>
           <li class="mb-3 border-b border-neutrals-g02 py-1 pb-3">
             <a
@@ -295,6 +306,12 @@
                     </a>
                   </li>
                   <li class="border-white py-1 ml-8 hover:border-b">
+                    <a href="{% url "about" %}" 
+                    class="font-body text-base font-medium uppercase tracking-wide text-white transition duration-300 hover:text-primary">
+                      About Us
+                    </a>
+                  </li>
+                  <li class="border-white py-1 ml-8 hover:border-b">
                     <a href="{% url "course_list" %}" 
                     class="font-body text-base font-medium uppercase tracking-wide text-white transition duration-300 hover:text-primary">
                       Courses
@@ -335,6 +352,7 @@
                     class="flex items-center pl-4">
                     <i class="bx bx-search-alt text-white text-xl px-2"></i>
                   </a>
+                  {% if request.user.is_authenticated %}
                   <div
                     class="hover:shadow-xs group relative ml-5 flex items-center rounded-full bg-primary px-2 py-1 shadow transition duration-300 hover:bg-white"
                   >
@@ -378,6 +396,7 @@
                       </div>
                     </div>
                   </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -400,6 +419,13 @@
           href="{% url "contact" %}"
             class="font-body text-base font-medium uppercase tracking-wide text-neutrals-g03"
             >Contact
+          </a>
+        </li>
+        <li class="mb-3 border-b border-neutrals-g02 py-1 pb-3">
+          <a
+          href="{% url "about" %}"
+            class="font-body text-base font-medium uppercase tracking-wide text-neutrals-g03"
+            >About Us
           </a>
         </li>
         <li class="mb-3 border-b border-neutrals-g02 py-1 pb-3">
@@ -441,6 +467,7 @@
     </div>
     {% endif %}
     <div>
+      {{ redirect_to_login_immediately }}
       {% block content %}
       {% endblock %}
 <div class="flex items-end justify-end fixed bottom-0 right-0 mb-4 mr-4 z-20">
@@ -451,7 +478,6 @@
   </div>
 </div>
     </div>
-    <!-- Footer 1  -->
     <div
     class="h-full w-full bg-cover bg-center bg-no-repeat"
     style="background-image: url({% static "img/bg-footerFS.jpg" %});"
@@ -525,20 +551,20 @@
         >
           <a
             href="tel:5714059196"
-            class="flex pt-2 opacity-100 transition duration-300 hover:opacity-75"
+            class="flex justify-center lg:justify-start pt-2 opacity-100 transition duration-300 hover:opacity-75"
           >
             <i
               class="bx bxs-phone text-white text-xl pr-4"
             ></i>
             <p
-              class="text-left font-body text-sm font-medium leading-relaxed tracking-wide text-white"
+              class="font-body text-sm font-medium leading-relaxed tracking-wide text-white"
             >
               (571) 405-9196
             </p>
           </a>
           <a
             href="mailto:contact@freenydrivingschool.com"
-            class="flex items-center pt-3 opacity-100 transition duration-300 hover:opacity-75"
+            class="flex justify-center lg:justify-start pt-3 opacity-100 transition duration-300 hover:opacity-75"
           >
             <i
               class="bx bxs-envelope text-white text-lg pr-4"
@@ -553,7 +579,6 @@
       </div>
     </div>
     </div>
-    <!-- Footer 2  -->
     <div class="bg-secondary">
     <div
       class="container flex flex-col items-center justify-between py-6 sm:flex-row"

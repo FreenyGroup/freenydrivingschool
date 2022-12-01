@@ -24,42 +24,36 @@ class OrderCreateForm(ModelForm):
         'country']
         widgets = {
             'ship_address': TextInput(attrs={
-                #'class': "w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm",
                 'placeholder': '',
                 'id': "ship_address",
                 'name': "ship_address",
                 'autocomplete': "off"
                 }),
             'address2': TextInput(attrs={
-                #'class': "w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm",
                 'placeholder': '',
                 'id': "address2",
                 'name': "address2",
                 'autocomplete': "off",
                 }),
             'postcode': NumberInput(attrs={
-                #'class': "w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm",
                 'placeholder': '',
                 'id': "postcode",
                 'name': "postcode",
                 'autocomplete': "off"
                 }),
             'locality': TextInput(attrs={
-                #'class': "w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm",
                 'placeholder': '',
                 'id': "locality",
                 'name': "locality",
                 'autocomplete': "off"
                 }) ,
             'state': TextInput(attrs={
-                #'class': "w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm",
                 'placeholder': '',
                 'id': "state",
                 'name': "state",
                 'autocomplete': "off"
                 }),
             'country': TextInput(attrs={
-                #'class': "w-full rounded-lg border-gray-200 p-2.5 text-sm shadow-sm",
                 'placeholder': '',
                 'id': "country",
                 'name': "country",
