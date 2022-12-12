@@ -40,6 +40,7 @@ def payment_process(request):
             'line_items': []
             }
             for item in cart:
+                print(int(float(item['price'])) * Decimal('100'))
                 session_data['line_items'].append({
                     'price_data': {
                         'unit_amount': int(item['price'] * Decimal('100')),
